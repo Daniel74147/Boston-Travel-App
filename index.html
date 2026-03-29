@@ -1,0 +1,1155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Beantown — Bobby's 7-Day Guide</title>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Beantown">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#0F1117">
+<meta name="description" content="Bobby's 7-Day Boston Guide">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="icon" href="icon-512.png" type="image/png">
+<link rel="manifest" href="manifest.json">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+:root {
+  color-scheme: dark;
+  --bg: #0F1117;
+  --surface: #181C26;
+  --surface2: #1E2333;
+  --border: rgba(255,255,255,0.07);
+  --brick: #C0392B;
+  --brick-dim: rgba(192,57,43,0.15);
+  --gold: #D4A843;
+  --gold-dim: rgba(212,168,67,0.12);
+  --text: #F0EEE8;
+  --muted: rgba(240,238,232,0.4);
+  --muted2: rgba(240,238,232,0.2);
+  --radius: 16px;
+  --radius-sm: 10px;
+}
+html { background: #0F1117 !important; color: #F0EEE8 !important; }
+html, body {
+  height: 100%;
+  background: #0F1117 !important;
+  color: #F0EEE8 !important;
+  font-family: 'Inter', sans-serif;
+  max-width: 430px;
+  margin: 0 auto;
+  overflow-x: hidden;
+}
+.header {
+  padding: 52px 20px 20px;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  position: relative;
+  overflow: hidden;
+}
+.header::after {
+  content: 'BOSTON';
+  position: absolute;
+  right: -12px; top: 14px;
+  font-family: 'Playfair Display', serif;
+  font-size: 68px; font-weight: 600;
+  color: rgba(255,255,255,0.03);
+  letter-spacing: -2px;
+  pointer-events: none;
+  user-select: none;
+}
+.header-eyebrow { font-size: 10px; font-weight: 500; letter-spacing: 2.5px; text-transform: uppercase; color: var(--gold); margin-bottom: 6px; }
+.header-title { font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 600; color: var(--text); line-height: 1.15; }
+.header-sub { font-size: 12px; color: var(--muted); margin-top: 4px; font-weight: 300; }
+.header-row { display: flex; align-items: center; justify-content: space-between; margin-top: 14px; }
+.day-pill { display: inline-flex; align-items: center; gap: 6px; background: var(--brick); color: white; font-size: 11px; font-weight: 500; padding: 5px 11px; border-radius: 100px; }
+.day-dot { width:5px; height:5px; border-radius:50%; background:rgba(255,255,255,0.6); }
+.progress-mini { display: flex; align-items: center; gap: 8px; }
+.progress-track { width: 80px; height: 3px; background: var(--border); border-radius: 100px; overflow: hidden; }
+.progress-fill { height: 100%; background: var(--gold); border-radius: 100px; transition: width 0.4s ease; }
+.progress-lbl { font-size: 10px; color: var(--muted); }
+
+/* TABS */
+.tab-bar { display: flex; gap: 4px; background: var(--surface); padding: 10px 12px 12px; border-bottom: 1px solid var(--border); }
+.tab { flex: 1; padding: 8px 4px; border: none; border-radius: var(--radius-sm); font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 500; cursor: pointer; letter-spacing: 0.2px; background: transparent; color: var(--muted); transition: all 0.18s; }
+.tab.active { background: var(--brick); color: white; }
+
+/* PANELS */
+.panel { display: none; padding: 16px 14px 96px; overflow-y: auto; }
+.panel.active { display: block; }
+
+.sec { font-size: 10px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin: 20px 0 10px 2px; }
+.card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px; margin-bottom: 10px; }
+.card-eyebrow { font-size: 10px; font-weight: 500; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin-bottom: 6px; }
+.card-title { font-family: 'Playfair Display', serif; font-size: 19px; font-weight: 600; color: var(--text); margin-bottom: 6px; }
+.card-body { font-size: 13px; color: var(--muted); line-height: 1.65; font-weight: 300; }
+.weather-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px 20px; margin-bottom: 10px; display: flex; align-items: center; justify-content: space-between; }
+.wx-city { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); }
+.wx-temp { font-family: 'Playfair Display', serif; font-size: 44px; font-weight: 600; color: var(--text); line-height: 1; }
+.wx-cond { font-size: 12px; color: var(--muted); margin-top: 3px; font-weight: 300; }
+.wx-icon { font-size: 48px; }
+.phrase-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px; margin-bottom: 10px; border-left: 3px solid var(--gold); }
+.phrase-main { font-family: 'Playfair Display', serif; font-size: 19px; font-style: italic; color: var(--gold); }
+.phrase-eng { font-size: 13px; color: var(--muted); margin-top: 6px; font-weight: 300; line-height: 1.5; }
+.phrase-pron { font-size: 11px; color: var(--muted2); margin-top: 4px; letter-spacing: 0.3px; }
+.quick-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 10px; }
+.quick-tile { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px 14px; cursor: pointer; transition: border-color 0.18s; }
+.quick-tile:active { border-color: var(--brick); }
+.quick-tile .t-icon { font-size: 24px; margin-bottom: 10px; display: block; }
+.quick-tile .t-name { font-size: 13px; font-weight: 500; color: var(--text); }
+.quick-tile .t-sub { font-size: 11px; color: var(--muted); margin-top: 2px; font-weight: 300; }
+.emergency-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px; margin-bottom: 10px; }
+.em-row { display: flex; justify-content: space-between; align-items: center; padding: 7px 0; border-bottom: 1px solid var(--border); }
+.em-row:last-child { border-bottom: none; padding-bottom: 0; }
+.em-label { font-size: 12px; color: var(--muted); }
+.em-val { font-size: 13px; font-weight: 600; color: var(--text); }
+
+/* DAY SELECTOR */
+.day-scroller { display: flex; gap: 7px; overflow-x: auto; scrollbar-width: none; padding-bottom: 4px; margin-bottom: 14px; }
+.day-scroller::-webkit-scrollbar { display: none; }
+.day-btn { min-width: 54px; height: 60px; border-radius: 13px; border: 1px solid var(--border); background: var(--surface); cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; transition: all 0.18s; flex-shrink: 0; position: relative; }
+.day-btn.active { background: var(--brick); border-color: var(--brick); }
+.day-btn.all-done { border-color: rgba(76,175,80,0.4); }
+.day-num { font-size: 17px; font-weight: 600; color: var(--text); line-height: 1; }
+.day-lbl { font-size: 9px; letter-spacing: 1px; text-transform: uppercase; color: var(--muted); margin-top: 3px; }
+.day-btn.active .day-lbl { color: rgba(255,255,255,0.65); }
+.day-progress-dots { display: flex; gap: 3px; margin-top: 5px; }
+.day-dot-small { width: 5px; height: 5px; border-radius: 50%; background: var(--border); transition: background 0.2s; }
+.day-dot-small.done { background: #4CAF50; }
+.day-btn.active .day-dot-small { background: rgba(255,255,255,0.25); }
+.day-btn.active .day-dot-small.done { background: rgba(255,255,255,0.9); }
+
+/* DAY PROGRESS BAR */
+.day-progress-bar { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 12px 14px; margin-bottom: 14px; display: flex; align-items: center; gap: 12px; }
+.day-prog-label { font-size: 11px; color: var(--muted); white-space: nowrap; }
+.day-prog-track { flex: 1; height: 4px; background: var(--border); border-radius: 100px; overflow: hidden; }
+.day-prog-fill { height: 100%; background: linear-gradient(90deg, var(--brick), var(--gold)); border-radius: 100px; transition: width 0.4s ease; }
+.day-prog-pct { font-size: 11px; font-weight: 600; color: var(--gold); white-space: nowrap; min-width: 30px; text-align: right; }
+
+/* STOP CARD WITH CHECKLIST */
+.stop-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 10px; overflow: hidden; transition: border-color 0.25s, opacity 0.25s; }
+.stop-card.checked { border-color: rgba(76,175,80,0.35); opacity: 0.75; }
+.stop-accent { height: 3px; background: linear-gradient(90deg, var(--brick), var(--gold)); transition: background 0.25s; }
+.stop-card.checked .stop-accent { background: linear-gradient(90deg, #4CAF50, #81C784); }
+.stop-body { padding: 16px 18px; }
+.stop-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; }
+.stop-header-left { flex: 1; min-width: 0; }
+.stop-time { font-size: 10px; font-weight: 600; letter-spacing: 1.8px; text-transform: uppercase; color: var(--brick); margin-bottom: 4px; }
+.stop-card.checked .stop-time { color: #4CAF50; }
+.stop-place { font-family: 'Playfair Display', serif; font-size: 17px; font-weight: 600; color: var(--text); }
+.stop-card.checked .stop-place { text-decoration: line-through; text-decoration-color: rgba(240,238,232,0.3); color: var(--muted); }
+.stop-note { font-size: 12px; color: var(--muted); margin-top: 6px; line-height: 1.6; font-weight: 300; }
+.stop-tags { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 10px; }
+.tag { font-size: 10px; font-weight: 500; letter-spacing: 0.8px; text-transform: uppercase; padding: 3px 9px; border-radius: 6px; }
+.tag-cat { background: var(--surface2); color: var(--muted); border: 1px solid var(--border); }
+.tag-t { background: var(--gold-dim); color: var(--gold); border: 1px solid rgba(212,168,67,0.2); }
+.tag-done { background: rgba(76,175,80,0.12); color: #81C784; border: 1px solid rgba(76,175,80,0.25); }
+
+/* CUSTOM CHECKBOX */
+.check-btn {
+  width: 30px; height: 30px; border-radius: 50%;
+  border: 2px solid var(--border);
+  background: var(--surface2);
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; flex-shrink: 0;
+  font-size: 14px;
+  transition: all 0.2s;
+  color: transparent;
+  margin-top: 2px;
+}
+.check-btn:active { transform: scale(0.9); }
+.stop-card.checked .check-btn {
+  background: #4CAF50;
+  border-color: #4CAF50;
+  color: white;
+}
+
+/* TRIP OVERVIEW */
+.trip-summary { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px 18px; margin-bottom: 14px; }
+.trip-summary-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+.trip-summary-label { font-size: 11px; color: var(--muted); }
+.trip-summary-val { font-size: 13px; font-weight: 600; color: var(--text); }
+.trip-overall-track { height: 6px; background: var(--border); border-radius: 100px; overflow: hidden; margin-top: 4px; }
+.trip-overall-fill { height: 100%; background: linear-gradient(90deg, var(--brick), var(--gold)); border-radius: 100px; transition: width 0.5s ease; }
+
+/* T GUIDE stops */
+.stop-card-t { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 10px; overflow: hidden; }
+.stop-card-t .stop-accent { height: 3px; }
+.stop-card-t .stop-body { padding: 16px 18px; }
+
+/* CHAT */
+.chat-wrap { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; margin-bottom: 12px; }
+.chat-header { background: var(--surface2); padding: 14px 16px; display: flex; align-items: center; gap: 12px; border-bottom: 1px solid var(--border); }
+.claude-av { width: 34px; height: 34px; border-radius: 50%; background: linear-gradient(135deg, var(--brick), var(--gold)); display: flex; align-items: center; justify-content: center; font-size: 15px; flex-shrink: 0; }
+.claude-name { font-size: 13px; font-weight: 600; color: var(--text); }
+.claude-status { font-size: 11px; color: var(--muted); display: flex; align-items: center; gap: 4px; }
+.online { width:6px; height:6px; border-radius:50%; background:#4CAF50; display:inline-block; }
+.chips { display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none; padding: 10px 14px 0; }
+.chips::-webkit-scrollbar { display: none; }
+.chip { white-space: nowrap; flex-shrink: 0; background: var(--surface2); border: 1px solid var(--border); border-radius: 100px; padding: 6px 13px; font-size: 11px; font-weight: 500; color: var(--muted); cursor: pointer; font-family: 'Inter', sans-serif; transition: all 0.18s; }
+.chip:active { background: var(--brick-dim); border-color: var(--brick); color: var(--text); }
+.messages { padding: 14px; min-height: 180px; max-height: 320px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; }
+.msg { display: flex; flex-direction: column; }
+.msg.user { align-items: flex-end; }
+.msg.ai { align-items: flex-start; }
+.bubble { max-width: 88%; padding: 10px 13px; border-radius: 14px; font-size: 13px; line-height: 1.55; font-weight: 300; }
+.msg.user .bubble { background: var(--brick); color: white; border-bottom-right-radius: 4px; }
+.msg.ai .bubble { background: var(--surface2); color: var(--text); border-bottom-left-radius: 4px; border: 1px solid var(--border); }
+.chat-input-row { display: flex; gap: 8px; align-items: center; padding: 12px 14px; border-top: 1px solid var(--border); }
+.chat-input { flex: 1; background: var(--surface2); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 9px 13px; font-family: 'Inter', sans-serif; font-size: 13px; color: var(--text); outline: none; transition: border-color 0.18s; }
+.chat-input:focus { border-color: var(--brick); }
+.chat-input::placeholder { color: var(--muted2); }
+.send-btn { width: 38px; height: 38px; border-radius: var(--radius-sm); background: var(--brick); border: none; color: white; font-size: 16px; cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.send-btn:active { background: #9B2D22; }
+.send-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+.link-row { display: flex; align-items: center; gap: 12px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 12px 14px; margin-bottom: 8px; text-decoration: none; transition: border-color 0.18s; }
+.link-row:active { border-color: var(--brick); }
+.link-icon { width: 36px; height: 36px; border-radius: 9px; background: var(--surface2); display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; color: var(--text); }
+.link-name { font-size: 13px; font-weight: 500; color: var(--text); }
+.link-sub { font-size: 11px; color: var(--muted); margin-top: 1px; font-weight: 300; }
+.link-chev { margin-left: auto; color: var(--muted); }
+
+/* BOTTOM NAV */
+.bottom-nav { position: fixed; bottom: 0; left: 50%; transform: translateX(-50%); width: 100%; max-width: 430px; background: rgba(15,17,23,0.97); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); border-top: 1px solid var(--border); padding: 10px 16px 22px; display: flex; justify-content: space-around; z-index: 100; }
+.nav-item { display: flex; flex-direction: column; align-items: center; gap: 3px; border: none; background: none; cursor: pointer; padding: 4px 14px; border-radius: var(--radius-sm); transition: all 0.18s; }
+.nav-icon { font-size: 20px; opacity: 0.35; transition: opacity 0.18s; }
+.nav-label { font-size: 10px; color: var(--muted2); font-family: 'Inter', sans-serif; transition: color 0.18s; }
+.nav-item.active .nav-icon { opacity: 1; }
+.nav-item.active .nav-label { color: var(--gold); }
+
+/* INSTALL BANNER */
+#installBanner { display: none; position: fixed; top: 0; left: 50%; transform: translateX(-50%); width: 100%; max-width: 430px; background: #1E2333; border-bottom: 1px solid rgba(212,168,67,0.25); padding: 12px 16px; z-index: 200; align-items: center; gap: 12px; }
+#installBanner.show { display: flex; }
+.install-title { font-size: 13px; font-weight: 600; color: #F0EEE8; }
+.install-sub { font-size: 11px; color: rgba(240,238,232,0.45); margin-top: 1px; }
+.install-btn { background: #C0392B; border: none; color: white; padding: 8px 14px; border-radius: 9px; font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 600; cursor: pointer; white-space: nowrap; flex-shrink: 0; }
+.install-close { background: none; border: none; color: rgba(240,238,232,0.35); font-size: 20px; cursor: pointer; padding: 0 2px; flex-shrink: 0; line-height: 1; }
+
+/* CELEBRATION */
+@keyframes pop { 0%{transform:scale(1)} 50%{transform:scale(1.15)} 100%{transform:scale(1)} }
+.popped { animation: pop 0.3s ease; }
+
+.loading-dots::after { content: ''; animation: ld 1.2s steps(4,end) infinite; }
+@keyframes ld { 0%,20%{content:''} 40%{content:'.'} 60%{content:'..'} 80%,100%{content:'…'} }
+</style>
+</head>
+<body>
+
+<div id="installBanner">
+  <span style="font-size:22px;">🦞</span>
+  <div style="flex:1;">
+    <div class="install-title" id="bannerTitle">Add Beantown to Home Screen</div>
+    <div class="install-sub" id="bannerSub">Tap Share then "Add to Home Screen"</div>
+  </div>
+  <button class="install-btn" onclick="handleInstallTap()">Install</button>
+  <button class="install-close" onclick="dismissBanner()">✕</button>
+</div>
+
+<div class="header">
+  <div class="header-eyebrow">Your Journey</div>
+  <div class="header-title">Wicked Good, Bobby 🦞</div>
+  <div class="header-sub">Boston · 7 Days · Bobby, Wife &amp; Little Man 🧒</div>
+  <div class="header-row">
+    <div class="day-pill"><span class="day-dot"></span><span id="headerDayLabel">Day 1 of 7</span></div>
+    <div class="progress-mini">
+      <div class="progress-track"><div class="progress-fill" id="tripProgressFill"></div></div>
+      <span class="progress-lbl" id="tripProgressPct">0%</span>
+    </div>
+  </div>
+</div>
+
+<div class="tab-bar">
+  <button class="tab active" onclick="switchTab('home')">Home</button>
+  <button class="tab" onclick="switchTab('plan')">Plan</button>
+  <button class="tab" onclick="switchTab('tguide')">T Guide</button>
+  <button class="tab" onclick="switchTab('claude')">Trip Tools</button>
+</div>
+
+<!-- HOME -->
+<div class="panel active" id="panel-home">
+  <div class="weather-card">
+    <div>
+      <div class="wx-city">Boston, MA</div>
+      <div class="wx-temp" id="wxTemp">--°</div>
+      <div class="wx-cond" id="wxCond">Loading weather…</div>
+    </div>
+    <div class="wx-icon" id="wxIcon">⏳</div>
+  </div>
+
+  <div class="sec">Trip Progress</div>
+  <div class="trip-summary">
+    <div class="trip-summary-row">
+      <span class="trip-summary-label">Stops completed</span>
+      <span class="trip-summary-val" id="homeDoneCount">0 of 21</span>
+    </div>
+    <div class="trip-overall-track">
+      <div class="trip-overall-fill" id="homeOverallFill" style="width:0%"></div>
+    </div>
+  </div>
+
+  <div class="sec">Today's Highlight</div>
+  <div class="card">
+    <div class="card-eyebrow">Must Do · Day 1</div>
+    <div class="card-title">Boston Common + North End</div>
+    <div class="card-body">Start at the Common — let your son run wild at Frog Pond. Then T over to the North End for your first real Boston dinner on Hanover Street. Cannoli from Mike's Pastry is non-negotiable. No car needed — ever.</div>
+  </div>
+
+  <div class="sec">Boston Phrase of the Day</div>
+  <div class="phrase-card">
+    <div class="phrase-main">"Wicked pissah, kid."</div>
+    <div class="phrase-eng">That's absolutely excellent / impressive.</div>
+    <div class="phrase-pron">WICK-id PIH-shah — use it liberally</div>
+  </div>
+
+  <div class="sec">Quick Access</div>
+  <div class="quick-grid">
+    <div class="quick-tile" onclick="switchTab('plan')">
+      <span class="t-icon">🗺️</span>
+      <div class="t-name">Itinerary</div><div class="t-sub">7-day plan</div>
+    </div>
+    <div class="quick-tile" onclick="switchTab('tguide')">
+      <span class="t-icon">🚇</span>
+      <div class="t-name">T Guide</div><div class="t-sub">Subway map</div>
+    </div>
+    <div class="quick-tile" onclick="switchTab('claude')">
+      <span class="t-icon">✦</span>
+      <div class="t-name">Ask Claude</div><div class="t-sub">Your AI guide</div>
+    </div>
+    <div class="quick-tile" onclick="window.open('https://maps.google.com/?q=Boston,Massachusetts','_blank')">
+      <span class="t-icon">📍</span>
+      <div class="t-name">Explore</div><div class="t-sub">Google Maps</div>
+    </div>
+  </div>
+
+  <div class="sec">Good to Know</div>
+  <div class="emergency-card">
+    <div class="card-eyebrow" style="margin-bottom:12px;">Emergency Info</div>
+    <div class="em-row"><span class="em-label">🚨 Emergency</span><span class="em-val">911</span></div>
+    <div class="em-row"><span class="em-label">🚇 MBTA (The T)</span><span class="em-val">617-222-3200</span></div>
+    <div class="em-row"><span class="em-label">🏥 Mass General</span><span class="em-val">617-726-2000</span></div>
+    <div class="em-row"><span class="em-label">🦞 Lobster emergency</span><span class="em-val">ask a local</span></div>
+  </div>
+</div>
+
+<!-- PLAN -->
+<div class="panel" id="panel-plan">
+  <div class="day-scroller" id="dayScroller"></div>
+  <div id="dayProgressBar" class="day-progress-bar">
+    <span class="day-prog-label" id="dayProgLabel">0 of 3 done</span>
+    <div class="day-prog-track"><div class="day-prog-fill" id="dayProgFill" style="width:0%"></div></div>
+    <span class="day-prog-pct" id="dayProgPct">0%</span>
+  </div>
+  <div id="itineraryContent"></div>
+</div>
+
+<!-- T GUIDE -->
+<div class="panel" id="panel-tguide">
+  <div class="card">
+    <div class="card-eyebrow">The Basics</div>
+    <div class="card-title">Riding the T</div>
+    <div class="card-body">Tap your credit card or phone at the reader — no ticket needed. Single ride is $2.40. Kids under 11 ride free. Runs roughly 5am–1am daily.</div>
+  </div>
+  <div class="sec">Lines at a Glance</div>
+  <div class="stop-card-t">
+    <div class="stop-accent" style="background:#DA291C;"></div>
+    <div class="stop-body">
+      <div class="stop-time" style="color:#DA291C;">🔴 Red Line</div>
+      <div class="stop-place" style="font-family:'Playfair Display',serif;font-size:17px;font-weight:600;color:var(--text);">South Station → Harvard → Alewife</div>
+      <div class="stop-note" style="font-size:12px;color:var(--muted);margin-top:6px;line-height:1.6;font-weight:300;">Your most-used line. Hits Downtown Crossing, Charles/MGH, and Harvard Square.</div>
+      <div class="stop-tags"><span class="tag tag-cat">Harvard</span><span class="tag tag-cat">South Station</span><span class="tag tag-cat">Kendall/MIT</span></div>
+    </div>
+  </div>
+  <div class="stop-card-t">
+    <div class="stop-accent" style="background:#00843D;"></div>
+    <div class="stop-body">
+      <div class="stop-time" style="color:#00843D;">🟢 Green Line</div>
+      <div class="stop-place" style="font-family:'Playfair Display',serif;font-size:17px;font-weight:600;color:var(--text);">Government Center → Kenmore → Newton</div>
+      <div class="stop-note" style="font-size:12px;color:var(--muted);margin-top:6px;line-height:1.6;font-weight:300;">Gets you to Fenway (Kenmore), Prudential Tower, and Science Museum (Science Park).</div>
+      <div class="stop-tags"><span class="tag tag-cat">Kenmore</span><span class="tag tag-cat">Prudential</span><span class="tag tag-cat">Boylston</span></div>
+    </div>
+  </div>
+  <div class="stop-card-t">
+    <div class="stop-accent" style="background:#003DA5;"></div>
+    <div class="stop-body">
+      <div class="stop-time" style="color:#003DA5;">🔵 Blue Line</div>
+      <div class="stop-place" style="font-family:'Playfair Display',serif;font-size:17px;font-weight:600;color:var(--text);">Bowdoin → Airport → Wonderland</div>
+      <div class="stop-note" style="font-size:12px;color:var(--muted);margin-top:6px;line-height:1.6;font-weight:300;">One stop for the Aquarium. Also your direct airport connection — no rideshare needed on arrival.</div>
+      <div class="stop-tags"><span class="tag tag-cat">Aquarium</span><span class="tag tag-cat">Airport</span><span class="tag tag-cat">Gov't Center</span></div>
+    </div>
+  </div>
+  <div class="stop-card-t">
+    <div class="stop-accent" style="background:#ED8B00;"></div>
+    <div class="stop-body">
+      <div class="stop-time" style="color:#ED8B00;">🟠 Orange Line</div>
+      <div class="stop-place" style="font-family:'Playfair Display',serif;font-size:17px;font-weight:600;color:var(--text);">Oak Grove → Forest Hills</div>
+      <div class="stop-note" style="font-size:12px;color:var(--muted);margin-top:6px;line-height:1.6;font-weight:300;">Hits Back Bay, Downtown Crossing, and Haymarket for the North End and Faneuil Hall.</div>
+      <div class="stop-tags"><span class="tag tag-cat">Haymarket</span><span class="tag tag-cat">Back Bay</span><span class="tag tag-cat">Downtown Crossing</span></div>
+    </div>
+  </div>
+  <div class="sec">Key Stops for Your Trip</div>
+  <div class="card">
+    <div class="card-body" style="display:flex;flex-direction:column;gap:10px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;padding-bottom:9px;border-bottom:1px solid var(--border);"><span style="font-size:13px;color:var(--text);font-weight:500;">Boston Common</span><span style="font-size:11px;color:var(--muted);">🟢 Boylston / Park St</span></div>
+      <div style="display:flex;justify-content:space-between;align-items:center;padding-bottom:9px;border-bottom:1px solid var(--border);"><span style="font-size:13px;color:var(--text);font-weight:500;">North End</span><span style="font-size:11px;color:var(--muted);">🟠 Haymarket</span></div>
+      <div style="display:flex;justify-content:space-between;align-items:center;padding-bottom:9px;border-bottom:1px solid var(--border);"><span style="font-size:13px;color:var(--text);font-weight:500;">New England Aquarium</span><span style="font-size:11px;color:var(--muted);">🔵 Aquarium</span></div>
+      <div style="display:flex;justify-content:space-between;align-items:center;padding-bottom:9px;border-bottom:1px solid var(--border);"><span style="font-size:13px;color:var(--text);font-weight:500;">Fenway Park</span><span style="font-size:11px;color:var(--muted);">🟢 Kenmore</span></div>
+      <div style="display:flex;justify-content:space-between;align-items:center;padding-bottom:9px;border-bottom:1px solid var(--border);"><span style="font-size:13px;color:var(--text);font-weight:500;">Children's Museum</span><span style="font-size:11px;color:var(--muted);">🔴 South Station</span></div>
+      <div style="display:flex;justify-content:space-between;align-items:center;padding-bottom:9px;border-bottom:1px solid var(--border);"><span style="font-size:13px;color:var(--text);font-weight:500;">Harvard Square</span><span style="font-size:11px;color:var(--muted);">🔴 Harvard</span></div>
+      <div style="display:flex;justify-content:space-between;align-items:center;padding-bottom:9px;border-bottom:1px solid var(--border);"><span style="font-size:13px;color:var(--text);font-weight:500;">Museum of Science</span><span style="font-size:11px;color:var(--muted);">🟢 Science Park</span></div>
+      <div style="display:flex;justify-content:space-between;align-items:center;"><span style="font-size:13px;color:var(--text);font-weight:500;">Prudential / View Boston</span><span style="font-size:11px;color:var(--muted);">🟢 Prudential</span></div>
+    </div>
+  </div>
+  <div class="sec">Pro Tips</div>
+  <div class="phrase-card">
+    <div class="phrase-main">"Tap, don't swipe."</div>
+    <div class="phrase-eng">Just tap your contactless card or Apple Pay at the gate — no app or ticket needed. Works on every line.</div>
+  </div>
+  <div class="phrase-card">
+    <div class="phrase-main">"The T stops at 1am."</div>
+    <div class="phrase-eng">Last trains are around 12:30–1am. Plan pub nights accordingly or budget for an Uber home.</div>
+  </div>
+  <a class="link-row" href="https://www.mbta.com/schedules/subway" target="_blank" style="margin-top:8px;">
+    <div class="link-icon">🚇</div>
+    <div><div class="link-name">MBTA Official Site</div><div class="link-sub">Live schedules &amp; alerts</div></div>
+    <span class="link-chev">›</span>
+  </a>
+</div>
+
+<!-- TRIP TOOLS -->
+<div class="panel" id="panel-claude">
+
+  <!-- Sub-tab bar -->
+  <div style="display:flex;gap:6px;margin-bottom:16px;">
+    <button class="tool-sub active" id="sub-budget" onclick="switchSub('budget')" style="flex:1;padding:9px 4px;border:1px solid var(--border);border-radius:var(--radius-sm);background:var(--brick);color:white;font-family:'Inter',sans-serif;font-size:11px;font-weight:600;cursor:pointer;letter-spacing:0.3px;">💰 Budget</button>
+    <button class="tool-sub" id="sub-wishlist" onclick="switchSub('wishlist')" style="flex:1;padding:9px 4px;border:1px solid var(--border);border-radius:var(--radius-sm);background:var(--surface);color:var(--muted);font-family:'Inter',sans-serif;font-size:11px;font-weight:600;cursor:pointer;letter-spacing:0.3px;">🍽️ Wishlist</button>
+    <button class="tool-sub" id="sub-notes" onclick="switchSub('notes')" style="flex:1;padding:9px 4px;border:1px solid var(--border);border-radius:var(--radius-sm);background:var(--surface);color:var(--muted);font-family:'Inter',sans-serif;font-size:11px;font-weight:600;cursor:pointer;letter-spacing:0.3px;">📝 Notes</button>
+  </div>
+
+  <!-- BUDGET SUB-PANEL -->
+  <div id="subpanel-budget">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px;">
+      <div class="card" style="padding:14px;text-align:center;">
+        <div style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:4px;">FOOD & DRINKS</div>
+        <div style="font-family:'Playfair Display',serif;font-size:26px;font-weight:600;color:var(--text);" id="budgetFoodTotal">$0</div>
+        <div style="font-size:10px;color:var(--muted);margin-top:2px;" id="budgetFoodCount">0 entries</div>
+      </div>
+      <div class="card" style="padding:14px;text-align:center;">
+        <div style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:4px;">ACTIVITIES</div>
+        <div style="font-family:'Playfair Display',serif;font-size:26px;font-weight:600;color:var(--text);" id="budgetActTotal">$0</div>
+        <div style="font-size:10px;color:var(--muted);margin-top:2px;" id="budgetActCount">0 entries</div>
+      </div>
+    </div>
+    <div class="card" style="padding:14px;margin-bottom:12px;display:flex;align-items:center;justify-content:space-between;">
+      <div>
+        <div style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:2px;">TOTAL SPENT</div>
+        <div style="font-family:'Playfair Display',serif;font-size:32px;font-weight:600;color:var(--text);" id="budgetGrandTotal">$0</div>
+      </div>
+      <div style="font-size:36px;">🦞</div>
+    </div>
+
+    <!-- Add entry -->
+    <div class="card" style="padding:16px;margin-bottom:12px;">
+      <div style="font-size:10px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:12px;">ADD EXPENSE</div>
+      <div style="display:flex;gap:8px;margin-bottom:10px;">
+        <button id="cat-food" onclick="setBudgetCat('food')" style="flex:1;padding:8px;border-radius:var(--radius-sm);border:2px solid var(--brick);background:var(--brick-dim);color:var(--text);font-family:'Inter',sans-serif;font-size:12px;font-weight:600;cursor:pointer;">🍽️ Food</button>
+        <button id="cat-act" onclick="setBudgetCat('act')" style="flex:1;padding:8px;border-radius:var(--radius-sm);border:1px solid var(--border);background:var(--surface2);color:var(--muted);font-family:'Inter',sans-serif;font-size:12px;font-weight:600;cursor:pointer;">🎟️ Activity</button>
+      </div>
+      <div style="display:flex;gap:8px;margin-bottom:8px;">
+        <input id="budgetDesc" placeholder="What was it?" style="flex:2;background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:9px 12px;font-family:'Inter',sans-serif;font-size:13px;color:var(--text);outline:none;" />
+        <input id="budgetAmt" type="number" placeholder="$0" min="0" step="0.01" style="flex:1;min-width:0;background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:9px 12px;font-family:'Inter',sans-serif;font-size:13px;color:var(--text);outline:none;" />
+      </div>
+      <button onclick="addBudgetEntry()" style="width:100%;padding:10px;border-radius:var(--radius-sm);background:var(--brick);border:none;color:white;font-family:'Inter',sans-serif;font-size:14px;font-weight:600;cursor:pointer;">+ Add Expense</button>
+    </div>
+
+    <!-- Entry list -->
+    <div id="budgetList"></div>
+  </div>
+
+  <!-- WISHLIST SUB-PANEL -->
+  <div id="subpanel-wishlist" style="display:none;">
+    <div class="card" style="padding:16px;margin-bottom:12px;">
+      <div style="font-size:10px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:12px;">ADD SPOT</div>
+      <div style="display:flex;gap:8px;margin-bottom:10px;">
+        <button id="wl-cat-try" onclick="setWlCat('try')" style="flex:1;padding:8px;border-radius:var(--radius-sm);border:2px solid var(--gold);background:var(--gold-dim);color:var(--text);font-family:'Inter',sans-serif;font-size:12px;font-weight:600;cursor:pointer;">⭐ Want to Try</button>
+        <button id="wl-cat-been" onclick="setWlCat('been')" style="flex:1;padding:8px;border-radius:var(--radius-sm);border:1px solid var(--border);background:var(--surface2);color:var(--muted);font-family:'Inter',sans-serif;font-size:12px;font-weight:600;cursor:pointer;">✅ Been There</button>
+      </div>
+      <div style="display:flex;gap:8px;">
+        <input id="wlName" placeholder="Restaurant or spot name…" style="flex:1;background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:9px 12px;font-family:'Inter',sans-serif;font-size:13px;color:var(--text);outline:none;" />
+        <button onclick="addWlEntry()" style="width:40px;height:40px;border-radius:var(--radius-sm);background:var(--gold);border:none;color:#0F1117;font-size:18px;font-weight:700;cursor:pointer;flex-shrink:0;">+</button>
+      </div>
+      <input id="wlNote" placeholder="Any notes? (optional)" style="width:100%;margin-top:8px;background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:9px 12px;font-family:'Inter',sans-serif;font-size:13px;color:var(--text);outline:none;" />
+    </div>
+    <div style="font-size:10px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin:4px 0 10px 2px;">WANT TO TRY</div>
+    <div id="wlTryList"></div>
+    <div style="font-size:10px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin:16px 0 10px 2px;">BEEN THERE</div>
+    <div id="wlBeenList"></div>
+  </div>
+
+  <!-- NOTES SUB-PANEL -->
+  <div id="subpanel-notes" style="display:none;">
+    <div id="notesList"></div>
+    <div class="card" style="padding:16px;margin-top:4px;">
+      <div style="font-size:10px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:10px;">ADD A MEMORY</div>
+      <div style="display:flex;gap:8px;margin-bottom:8px;">
+        <select id="noteDay" style="flex:1;background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:9px 12px;font-family:'Inter',sans-serif;font-size:13px;color:var(--text);outline:none;">
+          <option value="Day 1">Day 1 — Sat</option>
+          <option value="Day 2">Day 2 — Sun</option>
+          <option value="Day 3">Day 3 — Mon</option>
+          <option value="Day 4">Day 4 — Tue</option>
+          <option value="Day 5">Day 5 — Wed</option>
+          <option value="Day 6">Day 6 — Thu</option>
+          <option value="Day 7">Day 7 — Fri</option>
+        </select>
+      </div>
+      <textarea id="noteText" placeholder="What happened today? Highlight, funny moment, must-remember…" rows="3" style="width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:9px 12px;font-family:'Inter',sans-serif;font-size:13px;color:var(--text);outline:none;resize:none;line-height:1.55;"></textarea>
+      <button onclick="addNote()" style="width:100%;margin-top:8px;padding:10px;border-radius:var(--radius-sm);background:var(--brick);border:none;color:white;font-family:'Inter',sans-serif;font-size:13px;font-weight:600;cursor:pointer;">Save Memory</button>
+    </div>
+  </div>
+
+</div>
+
+<!-- BOTTOM NAV -->
+<div class="bottom-nav">
+  <button class="nav-item active" id="nav-home" onclick="switchTab('home')">
+    <span class="nav-icon">⌂</span><span class="nav-label">Home</span>
+  </button>
+  <button class="nav-item" id="nav-plan" onclick="switchTab('plan')">
+    <span class="nav-icon">🗓</span><span class="nav-label">Plan</span>
+  </button>
+  <button class="nav-item" id="nav-tguide" onclick="switchTab('tguide')">
+    <span class="nav-icon">🚇</span><span class="nav-label">T Guide</span>
+  </button>
+  <button class="nav-item" id="nav-claude" onclick="switchTab('claude')">
+    <span class="nav-icon">🧰</span><span class="nav-label">Trip Tools</span>
+  </button>
+</div>
+
+<script>
+'use strict';
+
+// ═══════════════════════════════════════════
+// ⚠️  ADD YOUR API KEY HERE
+// Get it at: https://console.anthropic.com
+// ═══════════════════════════════════════════
+const ANTHROPIC_API_KEY = 'YOUR_ANTHROPIC_API_KEY_HERE';
+// ═══════════════════════════════════════════
+
+// TABS
+const TABS = ['home','plan','tguide','claude'];
+function switchTab(t) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach((el,i) => el.classList.toggle('active', TABS[i]===t));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  const panel = document.getElementById('panel-'+t);
+  const nav = document.getElementById('nav-'+t);
+  if (panel) panel.classList.add('active');
+  if (nav) nav.classList.add('active');
+}
+
+// ITINERARY DATA
+const itinerary = [
+  { day:'SAT', stops:[
+    { time:'Arrival Day', place:'Check In — Hotel Indigo', note:'Get settled, grab your bearings. Hotel Indigo is well-located — you\'re already close to the T. No driving needed all week.', cat:'🏨 Home Base', t:'' },
+    { time:'Afternoon', place:'Boston Common + Public Garden', note:'Walk over and let your son go wild. Find the "Make Way for Ducklings" statues — he\'ll love them. Frog Pond is great for splashing around. Swan Boats if they\'re running.', cat:'🌳 Park · Kid Fave', t:'T: Park St / Arlington' },
+    { time:'Evening', place:'North End — First Taste', note:'Walk or T to Boston\'s Little Italy. Grab dinner on Hanover Street. Skip the line spots and find a small trattoria. End with a cannoli from Mike\'s Pastry — get there, order, eat outside.', cat:'🍝 Food', t:'T: Haymarket' }
+  ]},
+  { day:'SUN', stops:[
+    { time:'Morning', place:'Freedom Trail (Short Version)', note:'Start at Boston Common. Walk the red-brick path to the North End — that\'s the sweet spot. Hit the State House, Granary Burying Ground, and Paul Revere\'s House.', cat:'🧱 History · Local Tip', t:'T: Park St' },
+    { time:'Afternoon', place:'Boston Tea Party Ships & Museum', note:'Way more hands-on than a typical museum — your son can throw tea into the harbor! Actors, interactive exhibits, great for the whole family. Book tickets ahead.', cat:'⚓ History · Kid Fave', t:'T: South Station' },
+    { time:'Evening', place:'Seaport District', note:'Head to the Seaport for dinner. Modern food hall vibes, breweries, waterfront views. Row 34 is excellent for seafood + drinks. Relaxed enough with a 4-year-old.', cat:'🍺 Seaport · Drinks', t:'T: World Trade Center' }
+  ]},
+  { day:'MON', stops:[
+    { time:'Morning', place:'New England Aquarium', note:'Perfect for your son\'s attention span — penguins, giant ocean tank, sea lions. Compact and engaging. Harbor seals outside are free to peek at. Blue Line, super easy.', cat:'🐧 Kid Fave', t:'T: Aquarium (Blue Line)' },
+    { time:'Afternoon', place:'Rose Kennedy Greenway', note:'Right next to the Aquarium. Carousel that your son will love, splash fountains, food trucks. Chill adult vibe too — local beer garden pop-ups.', cat:'🎠 Park · Kid Fave', t:'Walk from Aquarium' },
+    { time:'Evening', place:'Faneuil Hall — Boston Public Market', note:'Skip Quincy Market (tourist trap). Go to Boston Public Market instead for real local food vendors. Then walk Faneuil Hall for street performers — great free entertainment for kids.', cat:'🛒 Local Tip · Food', t:'T: Haymarket' }
+  ]},
+  { day:'TUE', stops:[
+    { time:'Morning', place:'Boston Children\'s Museum', note:'Tailor-made for a 4-year-old. Climbing structures, water play, hands-on everything. One of the best kid spots in the entire city. Budget 2-3 hours minimum.', cat:'🧩 Kid Fave', t:'T: South Station + short walk' },
+    { time:'Afternoon', place:'Charles River Esplanade', note:'This is what locals actually do on a nice day. Walk, picnic, watch the river. Your son can run freely, you grab a bench. Stunning skyline views and zero tourist crowds.', cat:'🌊 Local Gem', t:'T: Charles/MGH (Red Line)' },
+    { time:'Evening', place:'Local Pub Night — J.J. Foley\'s or Mr. Dooley\'s', note:'Classic old-school Irish pubs that locals actually use. Dark wood, sports on TV, locals yelling about the Bruins. This is the real Boston pub experience.', cat:'🍺 Local Pub', t:'T: Downtown Crossing' }
+  ]},
+  { day:'WED', stops:[
+    { time:'All Day', place:'Fenway Park', note:'Check if the Red Sox are playing — if yes, prioritize getting tickets. Even without a game, the ballpark tour covers the Green Monster, manual scoreboard, and dugout. Oldest park in MLB.', cat:'⚾ Sports · Must Do', t:'T: Kenmore (Green Line)' },
+    { time:'Afternoon', place:'Fenway Neighborhood Wander', note:'Grab lunch near the park — Tasty Burger is a local go-to. Wander Lansdowne Street and soak up the atmosphere. Very lively even on non-game days.', cat:'🍔 Food · Sports Vibe', t:'Walk from Fenway' },
+    { time:'Evening', place:'View Boston Observation Deck', note:'360° city views from 750 feet up at the Prudential Tower. Low-effort, high-impact. Great for your son — he\'ll go crazy for the views. Book tickets online.', cat:'🏙️ Views', t:'T: Prudential (Green Line)' }
+  ]},
+  { day:'THU', stops:[
+    { time:'Morning', place:'Museum of Science', note:'Hands-on exhibits, lightning shows, dinosaurs, planetarium. Great mix of fun and learning. Your 4-year-old will be completely absorbed. Allow 3+ hours.', cat:'🔬 Kid Fave · Science', t:'T: Science Park (Green Line)' },
+    { time:'Afternoon', place:'Harvard Square, Cambridge', note:'Red Line straight to Harvard. Let your son run the Yard while you grab coffee. Wander the quirky shops on Brattle St. The Mapparium (giant glass globe you walk inside) is genuinely mind-blowing.', cat:'🎓 Cambridge · Hidden Gem', t:'T: Harvard (Red Line)' },
+    { time:'Evening', place:'Cambridge Dinner', note:'Stay in Cambridge — locals love it over there. Harvest on Brattle Street is a classic. Or hit a casual spot in Harvard Square. Way more local vibe than downtown Boston dining.', cat:'🍽️ Local Eats', t:'T: Harvard (Red Line)' }
+  ]},
+  { day:'FRI', stops:[
+    { time:'Morning', place:'Beacon Hill + Acorn Street', note:'Last morning stroll through Boston\'s most beautiful neighborhood. Gas-lit cobblestone streets, brick rowhouses. Acorn Street is the most photographed street in America. Grab a coffee on Charles Street.', cat:'📸 Architecture · Scenic', t:'T: Charles/MGH' },
+    { time:'Afternoon', place:'Final Dunkin\' Run', note:'Boston runs on Dunkin\'. Order a large iced coffee and say "regulah" — that means cream and sugar. Non-negotiable Boston farewell ritual.', cat:'☕ Boston Tradition', t:'Everywhere' },
+    { time:'Departure', place:'Wicked Good Trip, Kid 🦞', note:'You survived the one-way streets, the accents, and the rotaries. No car needed all week. You ate great, drank great, and your son has Boston memories for life. Come back for the Marathon.', cat:'👋 Goodbye', t:'' }
+  ]}
+];
+
+const TOTAL_STOPS = itinerary.reduce((s,d) => s + d.stops.length, 0); // 21
+
+// CHECKLIST STATE — persists via localStorage
+function getChecked() {
+  try { return JSON.parse(localStorage.getItem('beantown_checked') || '{}'); } catch(e) { return {}; }
+}
+function saveChecked(state) {
+  try { localStorage.setItem('beantown_checked', JSON.stringify(state)); } catch(e) {}
+}
+function stopKey(dayIdx, stopIdx) { return `${dayIdx}_${stopIdx}`; }
+
+function toggleStop(dayIdx, stopIdx) {
+  const state = getChecked();
+  const key = stopKey(dayIdx, stopIdx);
+  state[key] = !state[key];
+  saveChecked(state);
+  renderItinerary(dayIdx);
+  updateAllProgress();
+  // Animate the day button
+  const btn = document.querySelectorAll('.day-btn')[dayIdx];
+  if (btn) { btn.classList.add('popped'); setTimeout(() => btn.classList.remove('popped'), 300); }
+}
+
+function getDayDoneCount(dayIdx) {
+  const state = getChecked();
+  return itinerary[dayIdx].stops.filter((_,si) => state[stopKey(dayIdx,si)]).length;
+}
+
+function getTotalDone() {
+  const state = getChecked();
+  let count = 0;
+  itinerary.forEach((d,di) => d.stops.forEach((_,si) => { if (state[stopKey(di,si)]) count++; }));
+  return count;
+}
+
+function updateAllProgress() {
+  const done = getTotalDone();
+  const pct = Math.round((done / TOTAL_STOPS) * 100);
+
+  // Header progress bar
+  document.getElementById('tripProgressFill').style.width = pct + '%';
+  document.getElementById('tripProgressPct').textContent = pct + '%';
+
+  // Home tab overview
+  document.getElementById('homeDoneCount').textContent = `${done} of ${TOTAL_STOPS}`;
+  document.getElementById('homeOverallFill').style.width = pct + '%';
+
+  // Day button dots
+  document.querySelectorAll('.day-btn').forEach((btn, di) => {
+    const dayDone = getDayDoneCount(di);
+    const dayTotal = itinerary[di].stops.length;
+    const dots = btn.querySelectorAll('.day-dot-small');
+    dots.forEach((dot, si) => {
+      const state = getChecked();
+      dot.classList.toggle('done', !!state[stopKey(di, si)]);
+    });
+    btn.classList.toggle('all-done', dayDone === dayTotal);
+  });
+}
+
+let currentDay = 0;
+
+function renderItinerary(dayIdx) {
+  const d = itinerary[dayIdx];
+  const state = getChecked();
+  const dayDone = getDayDoneCount(dayIdx);
+  const dayTotal = d.stops.length;
+  const dayPct = Math.round((dayDone / dayTotal) * 100);
+
+  // Day progress bar
+  document.getElementById('dayProgLabel').textContent = `${dayDone} of ${dayTotal} done`;
+  document.getElementById('dayProgFill').style.width = dayPct + '%';
+  document.getElementById('dayProgPct').textContent = dayPct + '%';
+
+  let html = '';
+  d.stops.forEach((s, si) => {
+    const key = stopKey(dayIdx, si);
+    const isDone = !!state[key];
+    const tTag = s.t ? `<span class="tag tag-t">🚇 ${s.t}</span>` : '';
+    const doneTag = isDone ? `<span class="tag tag-done">✓ Done</span>` : '';
+    html += `
+      <div class="stop-card ${isDone ? 'checked' : ''}" id="stop-${dayIdx}-${si}">
+        <div class="stop-accent"></div>
+        <div class="stop-body">
+          <div class="stop-header">
+            <div class="stop-header-left">
+              <div class="stop-time">${s.time}</div>
+              <div class="stop-place">${s.place}</div>
+            </div>
+            <button class="check-btn" onclick="toggleStop(${dayIdx},${si})" aria-label="Mark as done">
+              ${isDone ? '✓' : ''}
+            </button>
+          </div>
+          <div class="stop-note">${s.note}</div>
+          <div class="stop-tags">
+            <span class="tag tag-cat">${s.cat}</span>
+            ${tTag}
+            ${doneTag}
+          </div>
+        </div>
+      </div>`;
+  });
+  document.getElementById('itineraryContent').innerHTML = html;
+}
+
+function buildDays() {
+  let html = '';
+  itinerary.forEach((d, i) => {
+    const dots = d.stops.map((_,si) => `<div class="day-dot-small" id="dd-${i}-${si}"></div>`).join('');
+    html += `<button class="day-btn${i===0?' active':''}" onclick="selectDay(this,${i})">
+      <span class="day-num">${i+1}</span>
+      <span class="day-lbl">${d.day}</span>
+      <div class="day-progress-dots">${dots}</div>
+    </button>`;
+  });
+  document.getElementById('dayScroller').innerHTML = html;
+  renderItinerary(0);
+  updateAllProgress();
+}
+
+function selectDay(btn, i) {
+  currentDay = i;
+  document.querySelectorAll('.day-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderItinerary(i);
+  updateAllProgress();
+}
+
+// CLAUDE CHAT
+const SYSTEM_PROMPT = `You are a knowledgeable, warm Boston travel guide helping Bobby, who is visiting Boston for 7 days with his wife and 4-year-old son. They are staying at Hotel Indigo in Boston. They love pubs, sports, parks, attractions, history, food — both adult and kid-friendly. They want to use the T (subway) as much as possible and avoid driving. Mix tourist highlights with genuine local spots. Give concise, practical, insider advice. Occasionally use Boston slang naturally (wicked, pissah, the T, Dunks, etc.). Keep responses to 2-4 sentences unless more detail is genuinely needed.`;
+
+const history = [];
+let msgN = 0;
+let isLoading = false;
+
+function appendMsg(role, html) {
+  const id = 'm'+(++msgN);
+  const area = document.getElementById('messages');
+  const d = document.createElement('div');
+  d.className = 'msg '+role;
+  d.id = id;
+  d.innerHTML = `<div class="bubble">${html}</div>`;
+  area.appendChild(d);
+  area.scrollTop = area.scrollHeight;
+  return id;
+}
+function updateMsg(id, html) {
+  const el = document.getElementById(id);
+  if (el) { el.querySelector('.bubble').innerHTML = html; document.getElementById('messages').scrollTop = 99999; }
+}
+
+async function sendMsg() {
+  if (isLoading) return;
+  const input = document.getElementById('chatInput');
+  const text = input.value.trim();
+  if (!text) return;
+
+  if (!ANTHROPIC_API_KEY || ANTHROPIC_API_KEY === 'YOUR_ANTHROPIC_API_KEY_HERE') {
+    appendMsg('ai', '⚠️ No API key set yet. Open the HTML file, find <code>YOUR_ANTHROPIC_API_KEY_HERE</code> near the top of the script, and replace it with your key from <a href="https://console.anthropic.com" target="_blank" style="color:var(--gold)">console.anthropic.com</a>.');
+    return;
+  }
+
+  input.value = '';
+  isLoading = true;
+  document.getElementById('sendBtn').disabled = true;
+  appendMsg('user', text);
+  history.push({ role: 'user', content: text });
+  const lid = appendMsg('ai', '<span class="loading-dots">Thinking</span>');
+
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'anthropic-version': '2023-06-01',
+        'anthropic-dangerous-direct-browser-access': 'true',
+        'x-api-key': ANTHROPIC_API_KEY
+      },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 1000,
+        system: SYSTEM_PROMPT,
+        messages: history
+      })
+    });
+
+    if (!res.ok) {
+      let errMsg = 'HTTP ' + res.status;
+      try { const e = await res.json(); errMsg = e.error?.message || errMsg; } catch(e) {}
+      throw new Error(errMsg);
+    }
+
+    const data = await res.json();
+    const reply = (data.content || []).filter(b => b.type==='text').map(b => b.text).join('');
+    if (!reply) throw new Error('Empty response');
+    history.push({ role: 'assistant', content: reply });
+    updateMsg(lid, reply);
+  } catch(e) {
+    console.error('Chat error:', e);
+    history.pop();
+    updateMsg(lid, `Wicked bad connection! ${e.message || ''} Try again or visit <a href="https://claude.ai" target="_blank" style="color:var(--gold)">claude.ai</a> directly 🙏`);
+  } finally {
+    isLoading = false;
+    document.getElementById('sendBtn').disabled = false;
+  }
+}
+
+function sendQuick(t) {
+  if (isLoading) return;
+  document.getElementById('chatInput').value = t;
+  sendMsg();
+}
+
+// PWA SERVICE WORKER
+function registerSW() {
+  if (!('serviceWorker' in navigator)) return;
+  const swCode = `
+const CACHE='beantown-v4';
+self.addEventListener('install',()=>self.skipWaiting());
+self.addEventListener('activate',e=>{
+  e.waitUntil(caches.keys().then(ks=>Promise.all(ks.filter(k=>k!==CACHE).map(k=>caches.delete(k)))).then(()=>self.clients.claim()));
+});
+self.addEventListener('fetch',e=>{
+  if(e.request.method!=='GET')return;
+  const u=e.request.url;
+  if(u.includes('api.anthropic.com')||u.includes('fonts.google')||u.includes('google.com/maps')||u.includes('wttr.in')||u.includes('accuweather.com'))return;
+  e.respondWith(caches.open(CACHE).then(c=>c.match(e.request).then(cached=>{
+    if(cached)return cached;
+    return fetch(e.request).then(r=>{if(r&&r.status===200)c.put(e.request,r.clone());return r;}).catch(()=>cached);
+  })));
+});`;
+  try {
+    const blob = new Blob([swCode], { type: 'application/javascript' });
+    navigator.serviceWorker.register(URL.createObjectURL(blob)).catch(() => {});
+  } catch(e) {}
+}
+
+// PWA INSTALL BANNER
+let deferredPrompt = null;
+const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
+const isStandalone = window.matchMedia('(display-mode:standalone)').matches || !!window.navigator.standalone;
+function showBanner() { document.getElementById('installBanner').classList.add('show'); }
+function dismissBanner() {
+  document.getElementById('installBanner').classList.remove('show');
+  try { sessionStorage.setItem('bannerDismissed','1'); } catch(e) {}
+}
+function handleInstallTap() {
+  if (isIOS) {
+    document.getElementById('bannerTitle').textContent = 'Tap the Share button ↑';
+    document.getElementById('bannerSub').textContent = 'Then choose "Add to Home Screen"';
+    return;
+  }
+  if (deferredPrompt) {
+    deferredPrompt.prompt();
+    deferredPrompt.userChoice.then(() => { deferredPrompt = null; dismissBanner(); });
+  }
+}
+window.addEventListener('beforeinstallprompt', e => {
+  e.preventDefault(); deferredPrompt = e;
+  try { if (!sessionStorage.getItem('bannerDismissed')) showBanner(); } catch(e) { showBanner(); }
+});
+window.addEventListener('appinstalled', () => { dismissBanner(); deferredPrompt = null; });
+if (isIOS && !isStandalone) {
+  setTimeout(() => { try { if (!sessionStorage.getItem('bannerDismissed')) showBanner(); } catch(e) { showBanner(); } }, 2000);
+}
+
+// LIVE WEATHER — wttr.in with retry + AccuWeather tap fallback
+
+
+async function fetchWeather(attempt = 1) {
+  const wxMap = {
+    113: null,
+    116: { icon: '⛅', cond: 'Partly cloudy' },
+    119: { icon: '☁️', cond: 'Cloudy' },
+    122: { icon: '☁️', cond: 'Overcast' },
+    143: { icon: '🌫️', cond: 'Foggy' },
+    176: { icon: '🌦️', cond: 'Patchy rain' },
+    179: { icon: '🌨️', cond: 'Patchy snow' },
+    200: { icon: '⛈️', cond: 'Thundery outbreaks' },
+    227: { icon: '🌨️', cond: 'Blowing snow' },
+    230: { icon: '❄️', cond: 'Blizzard' },
+    248: { icon: '🌫️', cond: 'Fog' },
+    260: { icon: '🌫️', cond: 'Freezing fog' },
+    263: { icon: '🌦️', cond: 'Light drizzle' },
+    266: { icon: '🌧️', cond: 'Drizzle' },
+    293: { icon: '🌦️', cond: 'Light rain' },
+    296: { icon: '🌧️', cond: 'Rain' },
+    299: { icon: '🌧️', cond: 'Moderate rain' },
+    302: { icon: '🌧️', cond: 'Heavy rain' },
+    305: { icon: '🌧️', cond: 'Heavy rain' },
+    311: { icon: '🌧️', cond: 'Sleet' },
+    317: { icon: '🌧️', cond: 'Sleet' },
+    320: { icon: '🌨️', cond: 'Light snow' },
+    323: { icon: '🌨️', cond: 'Patchy snow' },
+    326: { icon: '🌨️', cond: 'Light snow' },
+    332: { icon: '🌨️', cond: 'Moderate snow' },
+    338: { icon: '❄️', cond: 'Heavy snow' },
+    350: { icon: '🌧️', cond: 'Ice pellets' },
+    353: { icon: '🌦️', cond: 'Light rain shower' },
+    356: { icon: '🌧️', cond: 'Rain shower' },
+    368: { icon: '🌨️', cond: 'Snow shower' },
+    371: { icon: '❄️', cond: 'Heavy snow shower' },
+    386: { icon: '⛈️', cond: 'Thunderstorm' },
+    389: { icon: '⛈️', cond: 'Heavy thunderstorm' },
+    392: { icon: '⛈️', cond: 'Thundery snow' },
+    395: { icon: '⛈️', cond: 'Blizzard' },
+  };
+
+  try {
+    // cache-busting param so service worker never serves stale weather
+    const res = await fetch(`https://wttr.in/Boston,MA?format=j1&_=${Date.now()}`, { mode: 'cors', cache: 'no-store' });
+    if (!res.ok) throw new Error('status ' + res.status);
+    const d = await res.json();
+
+    const cur = d.current_condition[0];
+    const today = d.weather[0];
+    const temp = Math.round(parseFloat(cur.temp_F));
+    const high = Math.round(parseFloat(today.maxtempF));
+    const code = parseInt(cur.weatherCode);
+    const hour = new Date().getHours();
+    const isDay = hour >= 6 && hour < 20;
+
+    let icon, cond;
+    if (code === 113) {
+      icon = isDay ? '☀️' : '🌙';
+      cond = isDay ? 'Clear skies' : 'Clear night';
+    } else {
+      const wx = wxMap[code] || { icon: '🌡️', cond: (cur.weatherDesc[0] || {}).value || 'Mixed' };
+      icon = wx.icon;
+      cond = wx.cond;
+    }
+
+    document.getElementById('wxTemp').textContent = temp + '°';
+    document.getElementById('wxCond').textContent = cond + ' · High ' + high + '°';
+    document.getElementById('wxIcon').textContent = icon;
+
+  } catch(e) {
+    if (attempt < 3) {
+      setTimeout(() => fetchWeather(attempt + 1), 2000 * attempt);
+    } else {
+      document.getElementById('wxTemp').textContent = '--°';
+      document.getElementById('wxCond').textContent = 'Unable to load weather';
+      document.getElementById('wxIcon').textContent = '🌡️';
+    }
+  }
+}
+
+// ── TRIP TOOLS ────────────────────────────────────────────
+
+// Sub-tab switcher
+function switchSub(sub) {
+  ['budget','wishlist','notes'].forEach(s => {
+    document.getElementById('subpanel-'+s).style.display = s===sub ? 'block' : 'none';
+    const btn = document.getElementById('sub-'+s);
+    btn.style.background = s===sub ? 'var(--brick)' : 'var(--surface)';
+    btn.style.color = s===sub ? 'white' : 'var(--muted)';
+    btn.style.borderColor = s===sub ? 'var(--brick)' : 'var(--border)';
+    btn.style.borderWidth = s===sub ? '2px' : '1px';
+  });
+}
+
+// ── BUDGET ────────────────────────────────────────────────
+let budgetCat = 'food';
+function setBudgetCat(cat) {
+  budgetCat = cat;
+  const food = document.getElementById('cat-food');
+  const act  = document.getElementById('cat-act');
+  food.style.borderWidth = cat==='food' ? '2px' : '1px';
+  food.style.borderColor = cat==='food' ? 'var(--brick)' : 'var(--border)';
+  food.style.background  = cat==='food' ? 'var(--brick-dim)' : 'var(--surface2)';
+  food.style.color       = cat==='food' ? 'var(--text)' : 'var(--muted)';
+  act.style.borderWidth  = cat==='act' ? '2px' : '1px';
+  act.style.borderColor  = cat==='act' ? 'var(--brick)' : 'var(--border)';
+  act.style.background   = cat==='act' ? 'var(--brick-dim)' : 'var(--surface2)';
+  act.style.color        = cat==='act' ? 'var(--text)' : 'var(--muted)';
+}
+
+function getBudget() {
+  try { return JSON.parse(localStorage.getItem('beantown_budget') || '[]'); } catch(e) { return []; }
+}
+function saveBudget(d) {
+  try { localStorage.setItem('beantown_budget', JSON.stringify(d)); } catch(e) {}
+}
+
+function addBudgetEntry() {
+  const desc = document.getElementById('budgetDesc').value.trim();
+  const amt  = parseFloat(document.getElementById('budgetAmt').value);
+  if (!desc || isNaN(amt) || amt <= 0) return;
+  const entries = getBudget();
+  entries.push({ id: Date.now(), cat: budgetCat, desc, amt });
+  saveBudget(entries);
+  document.getElementById('budgetDesc').value = '';
+  document.getElementById('budgetAmt').value = '';
+  renderBudget();
+}
+
+function deleteBudgetEntry(id) {
+  saveBudget(getBudget().filter(e => e.id !== id));
+  renderBudget();
+}
+
+function renderBudget() {
+  const entries = getBudget();
+  const food = entries.filter(e => e.cat==='food');
+  const act  = entries.filter(e => e.cat==='act');
+  const sumFood = food.reduce((s,e) => s+e.amt, 0);
+  const sumAct  = act.reduce((s,e) => s+e.amt, 0);
+  const grand   = sumFood + sumAct;
+
+  document.getElementById('budgetFoodTotal').textContent = '$'+sumFood.toFixed(2);
+  document.getElementById('budgetFoodCount').textContent = food.length+' entr'+(food.length===1?'y':'ies');
+  document.getElementById('budgetActTotal').textContent  = '$'+sumAct.toFixed(2);
+  document.getElementById('budgetActCount').textContent  = act.length+' entr'+(act.length===1?'y':'ies');
+  document.getElementById('budgetGrandTotal').textContent = '$'+grand.toFixed(2);
+
+  const list = document.getElementById('budgetList');
+  if (!entries.length) {
+    list.innerHTML = '<div style="text-align:center;color:var(--muted);font-size:13px;padding:20px 0;">No expenses yet — add your first one above.</div>';
+    return;
+  }
+  list.innerHTML = [...entries].reverse().map(e => `
+    <div style="display:flex;align-items:center;justify-content:space-between;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px 14px;margin-bottom:7px;">
+      <div style="display:flex;align-items:center;gap:10px;">
+        <span style="font-size:18px;">${e.cat==='food'?'🍽️':'🎟️'}</span>
+        <div>
+          <div style="font-size:13px;font-weight:500;color:var(--text);">${e.desc}</div>
+          <div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;">${e.cat==='food'?'Food & Drinks':'Activity'}</div>
+        </div>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px;">
+        <span style="font-size:15px;font-weight:600;color:var(--gold);">$${e.amt.toFixed(2)}</span>
+        <button onclick="deleteBudgetEntry(${e.id})" style="background:none;border:none;color:var(--muted);font-size:16px;cursor:pointer;padding:0 2px;line-height:1;">✕</button>
+      </div>
+    </div>`).join('');
+}
+
+// ── WISHLIST ──────────────────────────────────────────────
+let wlCat = 'try';
+function setWlCat(cat) {
+  wlCat = cat;
+  const t = document.getElementById('wl-cat-try');
+  const b = document.getElementById('wl-cat-been');
+  t.style.borderWidth = cat==='try' ? '2px' : '1px';
+  t.style.borderColor = cat==='try' ? 'var(--gold)' : 'var(--border)';
+  t.style.background  = cat==='try' ? 'var(--gold-dim)' : 'var(--surface2)';
+  t.style.color       = cat==='try' ? 'var(--text)' : 'var(--muted)';
+  b.style.borderWidth = cat==='been' ? '2px' : '1px';
+  b.style.borderColor = cat==='been' ? 'var(--gold)' : 'var(--border)';
+  b.style.background  = cat==='been' ? 'var(--gold-dim)' : 'var(--surface2)';
+  b.style.color       = cat==='been' ? 'var(--text)' : 'var(--muted)';
+}
+
+function getWishlist() {
+  try { return JSON.parse(localStorage.getItem('beantown_wishlist') || '[]'); } catch(e) { return []; }
+}
+function saveWishlist(d) {
+  try { localStorage.setItem('beantown_wishlist', JSON.stringify(d)); } catch(e) {}
+}
+
+function addWlEntry() {
+  const name = document.getElementById('wlName').value.trim();
+  const note = document.getElementById('wlNote').value.trim();
+  if (!name) return;
+  const list = getWishlist();
+  list.push({ id: Date.now(), cat: wlCat, name, note });
+  saveWishlist(list);
+  document.getElementById('wlName').value = '';
+  document.getElementById('wlNote').value = '';
+  renderWishlist();
+}
+
+function deleteWlEntry(id) {
+  saveWishlist(getWishlist().filter(e => e.id !== id));
+  renderWishlist();
+}
+
+function moveWlEntry(id) {
+  const list = getWishlist();
+  const idx = list.findIndex(e => e.id === id);
+  if (idx < 0) return;
+  list[idx].cat = list[idx].cat === 'try' ? 'been' : 'try';
+  saveWishlist(list);
+  renderWishlist();
+}
+
+function renderWlSection(entries, containerId, emptyMsg) {
+  const el = document.getElementById(containerId);
+  if (!entries.length) {
+    el.innerHTML = `<div style="text-align:center;color:var(--muted);font-size:13px;padding:10px 0 20px;">${emptyMsg}</div>`;
+    return;
+  }
+  el.innerHTML = entries.map(e => `
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px 14px;margin-bottom:7px;">
+      <div style="display:flex;align-items:center;justify-content:space-between;">
+        <span style="font-size:13px;font-weight:500;color:var(--text);">${e.name}</span>
+        <div style="display:flex;gap:8px;align-items:center;">
+          <button onclick="moveWlEntry(${e.id})" title="${e.cat==='try'?'Mark as visited':'Move back to wishlist'}" style="background:none;border:1px solid var(--border);border-radius:6px;color:var(--muted);font-size:11px;padding:3px 7px;cursor:pointer;">${e.cat==='try'?'✓ Visited':'↩ Undo'}</button>
+          <button onclick="deleteWlEntry(${e.id})" style="background:none;border:none;color:var(--muted);font-size:16px;cursor:pointer;padding:0 2px;line-height:1;">✕</button>
+        </div>
+      </div>
+      ${e.note ? `<div style="font-size:11px;color:var(--muted);margin-top:5px;font-weight:300;">${e.note}</div>` : ''}
+    </div>`).join('');
+}
+
+function renderWishlist() {
+  const all = getWishlist();
+  renderWlSection(all.filter(e=>e.cat==='try'),  'wlTryList',  'Nothing on the list yet — add spots you want to try!');
+  renderWlSection(all.filter(e=>e.cat==='been'), 'wlBeenList', 'No visited spots yet.');
+}
+
+// ── NOTES ─────────────────────────────────────────────────
+function getNotes() {
+  try { return JSON.parse(localStorage.getItem('beantown_notes') || '[]'); } catch(e) { return []; }
+}
+function saveNotes(d) {
+  try { localStorage.setItem('beantown_notes', JSON.stringify(d)); } catch(e) {}
+}
+
+function addNote() {
+  const day  = document.getElementById('noteDay').value;
+  const text = document.getElementById('noteText').value.trim();
+  if (!text) return;
+  const notes = getNotes();
+  notes.push({ id: Date.now(), day, text });
+  saveNotes(notes);
+  document.getElementById('noteText').value = '';
+  renderNotes();
+}
+
+function deleteNote(id) {
+  saveNotes(getNotes().filter(n => n.id !== id));
+  renderNotes();
+}
+
+function renderNotes() {
+  const notes = getNotes();
+  const el = document.getElementById('notesList');
+  if (!notes.length) {
+    el.innerHTML = '<div style="text-align:center;color:var(--muted);font-size:13px;padding:20px 0;">No memories yet — jot down a highlight each day!</div>';
+    return;
+  }
+  el.innerHTML = [...notes].reverse().map(n => `
+    <div style="background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--gold);border-radius:var(--radius-sm);padding:14px 16px;margin-bottom:8px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+        <span style="font-size:10px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--gold);">${n.day}</span>
+        <button onclick="deleteNote(${n.id})" style="background:none;border:none;color:var(--muted);font-size:16px;cursor:pointer;padding:0;line-height:1;">✕</button>
+      </div>
+      <div style="font-size:13px;color:var(--text);line-height:1.6;font-weight:300;">${n.text}</div>
+    </div>`).join('');
+}
+
+// ── INIT TRIP TOOLS ───────────────────────────────────────
+function initTripTools() {
+  renderBudget();
+  renderWishlist();
+  renderNotes();
+}
+
+// INIT
+buildDays();
+fetchWeather();
+initTripTools();
+registerSW();
+</script>
+</body>
+</html>
