@@ -3,13 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Beantown — Bobby's 7-Day Guide</title>
+<title>Beantown — Bobby's 8-Day Guide</title>
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Beantown">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="theme-color" content="#0F1117">
-<meta name="description" content="Bobby's 7-Day Boston Guide">
+<meta name="description" content="Bobby's 8-Day Boston Guide">
 <link rel="apple-touch-icon" href="icon-192.png">
 <link rel="icon" href="icon-512.png" type="image/png">
 <link rel="manifest" href="manifest.json">
@@ -250,9 +250,9 @@ html, body {
 <div class="header">
   <div class="header-eyebrow">Your Journey</div>
   <div class="header-title">Wicked Good, Bobby 🦞</div>
-  <div class="header-sub">Boston · 7 Days · Bobby, Wife &amp; Little Man 🧒</div>
+  <div class="header-sub">Boston · Sept 21–28 · Bobby, Wife &amp; Little Man 🧒</div>
   <div class="header-row">
-    <div class="day-pill"><span class="day-dot"></span><span id="headerDayLabel">Day 1 of 7</span></div>
+    <div class="day-pill"><span class="day-dot"></span><span id="headerDayLabel">Day 1 of 8</span></div>
     <div class="progress-mini">
       <div class="progress-track"><div class="progress-fill" id="tripProgressFill"></div></div>
       <span class="progress-lbl" id="tripProgressPct">0%</span>
@@ -264,7 +264,7 @@ html, body {
   <button class="tab active" onclick="switchTab('home')">Home</button>
   <button class="tab" onclick="switchTab('plan')">Plan</button>
   <button class="tab" onclick="switchTab('tguide')">T Guide</button>
-  <button class="tab" onclick="switchTab('claude')">Trip Tools</button>
+  <button class="tab" onclick="switchTab('food')">Food &amp; Drink</button>
 </div>
 
 <!-- HOME -->
@@ -307,15 +307,15 @@ html, body {
   <div class="quick-grid">
     <div class="quick-tile" onclick="switchTab('plan')">
       <span class="t-icon">🗺️</span>
-      <div class="t-name">Itinerary</div><div class="t-sub">7-day plan</div>
+      <div class="t-name">Itinerary</div><div class="t-sub">8-day plan</div>
     </div>
     <div class="quick-tile" onclick="switchTab('tguide')">
       <span class="t-icon">🚇</span>
       <div class="t-name">T Guide</div><div class="t-sub">Subway map</div>
     </div>
-    <div class="quick-tile" onclick="switchTab('claude')">
-      <span class="t-icon">✦</span>
-      <div class="t-name">Ask Claude</div><div class="t-sub">Your AI guide</div>
+    <div class="quick-tile" onclick="switchTab('food')">
+      <span class="t-icon">☕</span>
+      <div class="t-name">Food &amp; Drink</div><div class="t-sub">Quick reference</div>
     </div>
     <div class="quick-tile" onclick="window.open('https://maps.google.com/?q=Boston,Massachusetts','_blank')">
       <span class="t-icon">📍</span>
@@ -418,94 +418,46 @@ html, body {
 </div>
 
 <!-- TRIP TOOLS -->
-<div class="panel" id="panel-claude">
+<div class="panel" id="panel-food">
 
-  <!-- Sub-tab bar -->
-  <div style="display:flex;gap:6px;margin-bottom:16px;">
-    <button class="tool-sub active" id="sub-budget" onclick="switchSub('budget')" style="flex:1;padding:9px 4px;border:1px solid var(--border);border-radius:var(--radius-sm);background:var(--brick);color:white;font-family:'Inter',sans-serif;font-size:11px;font-weight:600;cursor:pointer;letter-spacing:0.3px;">💰 Budget</button>
-    <button class="tool-sub" id="sub-wishlist" onclick="switchSub('wishlist')" style="flex:1;padding:9px 4px;border:1px solid var(--border);border-radius:var(--radius-sm);background:var(--surface);color:var(--muted);font-family:'Inter',sans-serif;font-size:11px;font-weight:600;cursor:pointer;letter-spacing:0.3px;">🍽️ Wishlist</button>
-    <button class="tool-sub" id="sub-notes" onclick="switchSub('notes')" style="flex:1;padding:9px 4px;border:1px solid var(--border);border-radius:var(--radius-sm);background:var(--surface);color:var(--muted);font-family:'Inter',sans-serif;font-size:11px;font-weight:600;cursor:pointer;letter-spacing:0.3px;">📝 Notes</button>
+  <div class="sec">☕ Coffee Stops</div>
+  <div class="emergency-card">
+    <div class="em-row"><span class="em-label">Thinking Cup</span><span class="em-val">Wed morning</span></div>
+    <div class="em-row"><span class="em-label">Pavement Coffee — Newbury St</span><span class="em-val">Thu afternoon</span></div>
+    <div class="em-row"><span class="em-label">Pavement Coffee — Fenway</span><span class="em-val">Fri morning</span></div>
+    <div class="em-row"><span class="em-label">Pavement Coffee — Fenway</span><span class="em-val">Sun morning</span></div>
   </div>
 
-  <!-- BUDGET SUB-PANEL -->
-  <div id="subpanel-budget">
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px;">
-      <div class="card" style="padding:14px;text-align:center;">
-        <div style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:4px;">FOOD & DRINKS</div>
-        <div style="font-family:'Playfair Display',serif;font-size:26px;font-weight:600;color:var(--text);" id="budgetFoodTotal">$0</div>
-        <div style="font-size:10px;color:var(--muted);margin-top:2px;" id="budgetFoodCount">0 entries</div>
-      </div>
-      <div class="card" style="padding:14px;text-align:center;">
-        <div style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:4px;">ACTIVITIES</div>
-        <div style="font-family:'Playfair Display',serif;font-size:26px;font-weight:600;color:var(--text);" id="budgetActTotal">$0</div>
-        <div style="font-size:10px;color:var(--muted);margin-top:2px;" id="budgetActCount">0 entries</div>
-      </div>
-    </div>
-    <div class="card" style="padding:14px;margin-bottom:12px;display:flex;align-items:center;justify-content:space-between;">
-      <div>
-        <div style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:2px;">TOTAL SPENT</div>
-        <div style="font-family:'Playfair Display',serif;font-size:32px;font-weight:600;color:var(--text);" id="budgetGrandTotal">$0</div>
-      </div>
-      <div style="font-size:36px;">🦞</div>
-    </div>
-
-    <!-- Add entry -->
-    <div class="card" style="padding:16px;margin-bottom:12px;">
-      <div style="font-size:10px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:12px;">ADD EXPENSE</div>
-      <div style="display:flex;gap:8px;margin-bottom:10px;">
-        <button id="cat-food" onclick="setBudgetCat('food')" style="flex:1;padding:8px;border-radius:var(--radius-sm);border:2px solid var(--brick);background:var(--brick-dim);color:var(--text);font-family:'Inter',sans-serif;font-size:12px;font-weight:600;cursor:pointer;">🍽️ Food</button>
-        <button id="cat-act" onclick="setBudgetCat('act')" style="flex:1;padding:8px;border-radius:var(--radius-sm);border:1px solid var(--border);background:var(--surface2);color:var(--muted);font-family:'Inter',sans-serif;font-size:12px;font-weight:600;cursor:pointer;">🎟️ Activity</button>
-      </div>
-      <div style="display:flex;gap:8px;margin-bottom:8px;">
-        <input id="budgetDesc" placeholder="What was it?" style="flex:2;background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:9px 12px;font-family:'Inter',sans-serif;font-size:13px;color:var(--text);outline:none;" />
-        <input id="budgetAmt" type="number" placeholder="$0" min="0" step="0.01" style="flex:1;min-width:0;background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:9px 12px;font-family:'Inter',sans-serif;font-size:13px;color:var(--text);outline:none;" />
-      </div>
-      <button onclick="addBudgetEntry()" style="width:100%;padding:10px;border-radius:var(--radius-sm);background:var(--brick);border:none;color:white;font-family:'Inter',sans-serif;font-size:14px;font-weight:600;cursor:pointer;">+ Add Expense</button>
-    </div>
-
-    <!-- Entry list -->
-    <div id="budgetList"></div>
+  <div class="sec">🍽️ Food List</div>
+  <div class="emergency-card">
+    <div class="em-row"><span class="em-label">Bova's Bakery</span><span class="em-val">Open 24 hrs</span></div>
+    <div class="em-row"><span class="em-label">Regina Pizza</span><span class="em-val">North End</span></div>
+    <div class="em-row"><span class="em-label">Tasty Burger</span><span class="em-val">Fenway</span></div>
+    <div class="em-row"><span class="em-label">Time Out Market</span><span class="em-val">Fenway</span></div>
+    <div class="em-row"><span class="em-label">Hub Hall</span><span class="em-val">Beacon Hill area</span></div>
+    <div class="em-row"><span class="em-label">Banners Kitchen &amp; Tap</span><span class="em-val">Beacon Hill area</span></div>
+    <div class="em-row"><span class="em-label">Tree House Brewing</span><span class="em-val">Prudential</span></div>
+    <div class="em-row"><span class="em-label">Boston Public Market</span><span class="em-val">Fri–Sat, 8am–8pm</span></div>
+    <div class="em-row"><span class="em-label">Haymarket</span><span class="em-val">Fri–Sat only</span></div>
+    <div class="em-row"><span class="em-label">Quincy Market</span><span class="em-val">Downtown</span></div>
   </div>
 
-  <!-- WISHLIST SUB-PANEL -->
-  <div id="subpanel-wishlist" style="display:none;">
-    <div class="card" style="padding:16px;margin-bottom:12px;">
-      <div style="font-size:10px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:12px;">ADD SPOT</div>
-      <div style="display:flex;gap:8px;margin-bottom:10px;">
-        <button id="wl-cat-try" onclick="setWlCat('try')" style="flex:1;padding:8px;border-radius:var(--radius-sm);border:2px solid var(--gold);background:var(--gold-dim);color:var(--text);font-family:'Inter',sans-serif;font-size:12px;font-weight:600;cursor:pointer;">⭐ Want to Try</button>
-        <button id="wl-cat-been" onclick="setWlCat('been')" style="flex:1;padding:8px;border-radius:var(--radius-sm);border:1px solid var(--border);background:var(--surface2);color:var(--muted);font-family:'Inter',sans-serif;font-size:12px;font-weight:600;cursor:pointer;">✅ Been There</button>
-      </div>
-      <div style="display:flex;gap:8px;">
-        <input id="wlName" placeholder="Restaurant or spot name…" style="flex:1;background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:9px 12px;font-family:'Inter',sans-serif;font-size:13px;color:var(--text);outline:none;" />
-        <button onclick="addWlEntry()" style="width:40px;height:40px;border-radius:var(--radius-sm);background:var(--gold);border:none;color:#0F1117;font-size:18px;font-weight:700;cursor:pointer;flex-shrink:0;">+</button>
-      </div>
-      <input id="wlNote" placeholder="Any notes? (optional)" style="width:100%;margin-top:8px;background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:9px 12px;font-family:'Inter',sans-serif;font-size:13px;color:var(--text);outline:none;" />
-    </div>
-    <div style="font-size:10px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin:4px 0 10px 2px;">WANT TO TRY</div>
-    <div id="wlTryList"></div>
-    <div style="font-size:10px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin:16px 0 10px 2px;">BEEN THERE</div>
-    <div id="wlBeenList"></div>
+  <div class="sec">Worth Knowing</div>
+  <div class="card">
+    <div class="card-eyebrow">Rose Kennedy Greenway</div>
+    <div class="card-body">Already on the Wednesday route — beautiful parks, fountains, and open space, perfect for a 4-year-old to run around.</div>
   </div>
-
-  <!-- NOTES SUB-PANEL -->
-  <div id="subpanel-notes" style="display:none;">
-    <div id="notesList"></div>
-    <div class="card" style="padding:16px;margin-top:4px;">
-      <div style="font-size:10px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:10px;">ADD A MEMORY</div>
-      <div style="display:flex;gap:8px;margin-bottom:8px;">
-        <select id="noteDay" style="flex:1;background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:9px 12px;font-family:'Inter',sans-serif;font-size:13px;color:var(--text);outline:none;">
-          <option value="Day 1">Day 1 — Sat</option>
-          <option value="Day 2">Day 2 — Sun</option>
-          <option value="Day 3">Day 3 — Mon</option>
-          <option value="Day 4">Day 4 — Tue</option>
-          <option value="Day 5">Day 5 — Wed</option>
-          <option value="Day 6">Day 6 — Thu</option>
-          <option value="Day 7">Day 7 — Fri</option>
-        </select>
-      </div>
-      <textarea id="noteText" placeholder="What happened today? Highlight, funny moment, must-remember…" rows="3" style="width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:9px 12px;font-family:'Inter',sans-serif;font-size:13px;color:var(--text);outline:none;resize:none;line-height:1.55;"></textarea>
-      <button onclick="addNote()" style="width:100%;margin-top:8px;padding:10px;border-radius:var(--radius-sm);background:var(--brick);border:none;color:white;font-family:'Inter',sans-serif;font-size:13px;font-weight:600;cursor:pointer;">Save Memory</button>
-    </div>
+  <div class="card">
+    <div class="card-eyebrow">Charles River Esplanade</div>
+    <div class="card-body">One of the nicest spots in the city for a relaxed afternoon — playgrounds, river views, and wide paths for walking.</div>
+  </div>
+  <div class="card">
+    <div class="card-eyebrow">Boston Public Market vs. Quincy Market</div>
+    <div class="card-body">Worth prioritizing over Quincy Market for quality local food. Haymarket sits right next door for an easy combo stop.</div>
+  </div>
+  <div class="card">
+    <div class="card-eyebrow">View Boston Observation Deck (Optional, Paid)</div>
+    <div class="card-body">If one paid attraction beyond the ballgames and Salem sounds appealing, this is the pick — panoramic views that pair well with Friday's visit to the Prudential Center.</div>
   </div>
 
 </div>
@@ -521,8 +473,8 @@ html, body {
   <button class="nav-item" id="nav-tguide" onclick="switchTab('tguide')">
     <span class="nav-icon">🚇</span><span class="nav-label">T Guide</span>
   </button>
-  <button class="nav-item" id="nav-claude" onclick="switchTab('claude')">
-    <span class="nav-icon">🧰</span><span class="nav-label">Trip Tools</span>
+  <button class="nav-item" id="nav-food" onclick="switchTab('food')">
+    <span class="nav-icon">☕</span><span class="nav-label">Food</span>
   </button>
 </div>
 
@@ -537,7 +489,7 @@ const ANTHROPIC_API_KEY = 'YOUR_ANTHROPIC_API_KEY_HERE';
 // ═══════════════════════════════════════════
 
 // TABS
-const TABS = ['home','plan','tguide','claude'];
+const TABS = ['home','plan','tguide','food'];
 function switchTab(t) {
   document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.tab').forEach((el,i) => el.classList.toggle('active', TABS[i]===t));
@@ -550,44 +502,58 @@ function switchTab(t) {
 
 // ITINERARY DATA
 const itinerary = [
-  { day:'SAT', stops:[
-    { time:'Arrival Day', place:'Check In — Hotel Indigo', note:'Get settled, grab your bearings. Hotel Indigo is well-located — you\'re already close to the T. No driving needed all week.', cat:'🏨 Home Base', t:'' },
-    { time:'Afternoon', place:'Boston Common + Public Garden', note:'Walk over and let your son go wild. Find the "Make Way for Ducklings" statues — he\'ll love them. Frog Pond is great for splashing around. Swan Boats if they\'re running.', cat:'🌳 Park · Kid Fave', t:'T: Park St / Arlington' },
-    { time:'Evening', place:'North End — First Taste', note:'Walk or T to Boston\'s Little Italy. Grab dinner on Hanover Street. Skip the line spots and find a small trattoria. End with a cannoli from Mike\'s Pastry — get there, order, eat outside.', cat:'🍝 Food', t:'T: Haymarket' }
+  { day:'MON 9/21', stops:[
+    { time:'6:00 PM · Arrive', place:'Check In — Wyndham Boston Beacon Hill', note:'Uber straight to the hotel, check in, unpack, relax. Optional short stroll down Charles Street if everyone still has energy.', cat:'🏨 Home Base', t:'' },
+    { time:'Late Snack / Dinner', place:'Bova\'s Bakery', note:'Open 24 hours — perfect for a late arrival. Or grab dinner near the hotel instead. Lights out around 8:30–9:00 PM to rest up for the week ahead.', cat:'🥐 Food', t:'Near hotel' }
   ]},
-  { day:'SUN', stops:[
-    { time:'Morning', place:'Freedom Trail (Short Version)', note:'Start at Boston Common. Walk the red-brick path to the North End — that\'s the sweet spot. Hit the State House, Granary Burying Ground, and Paul Revere\'s House.', cat:'🧱 History · Local Tip', t:'T: Park St' },
-    { time:'Afternoon', place:'Boston Tea Party Ships & Museum', note:'Way more hands-on than a typical museum — your son can throw tea into the harbor! Actors, interactive exhibits, great for the whole family. Book tickets ahead.', cat:'⚓ History · Kid Fave', t:'T: South Station' },
-    { time:'Evening', place:'Seaport District', note:'Head to the Seaport for dinner. Modern food hall vibes, breweries, waterfront views. Row 34 is excellent for seafood + drinks. Relaxed enough with a 4-year-old.', cat:'🍺 Seaport · Drinks', t:'T: World Trade Center' }
+  { day:'TUE 9/22', stops:[
+    { time:'Morning', place:'Beacon Hill Wander', note:'Charles St & Acorn Street, Louisburg Square, Boston Common & Public Garden, the "Make Way for Ducklings" statues, and a playground stop.', cat:'📸 Beacon Hill · Kid Fave', t:'Walk from hotel' },
+    { time:'Lunch', place:'Quincy Market', note:'Walk Faneuil Hall after lunch. (Tweak to consider: swap this lunch to Boston Public Market and save Quincy Market for a quick walk-through instead.)', cat:'🛒 Food', t:'T: Government Center' },
+    { time:'Afternoon', place:'Christopher Columbus Waterfront Park', note:'Long Wharf & Harborwalk views. Back to the hotel around 4:00 PM to rest and recharge before dinner.', cat:'🌊 Park', t:'Walk from Faneuil Hall' },
+    { time:'Dinner', place:'Hub Hall or Banners Kitchen & Tap', note:'Casual dinner before the game — walk back to the hotel afterward.', cat:'🍽️ Food', t:'' },
+    { time:'Night', place:'Bruins Game', note:'Evening at the game — walk back to the hotel after.', cat:'🏒 Sports', t:'' }
   ]},
-  { day:'MON', stops:[
-    { time:'Morning', place:'New England Aquarium', note:'Perfect for your son\'s attention span — penguins, giant ocean tank, sea lions. Compact and engaging. Harbor seals outside are free to peek at. Blue Line, super easy.', cat:'🐧 Kid Fave', t:'T: Aquarium (Blue Line)' },
-    { time:'Afternoon', place:'Rose Kennedy Greenway', note:'Right next to the Aquarium. Carousel that your son will love, splash fountains, food trucks. Chill adult vibe too — local beer garden pop-ups.', cat:'🎠 Park · Kid Fave', t:'Walk from Aquarium' },
-    { time:'Evening', place:'Faneuil Hall — Boston Public Market', note:'Skip Quincy Market (tourist trap). Go to Boston Public Market instead for real local food vendors. Then walk Faneuil Hall for street performers — great free entertainment for kids.', cat:'🛒 Local Tip · Food', t:'T: Haymarket' }
+  { day:'WED 9/23', stops:[
+    { time:'Breakfast', place:'Thinking Cup', note:'Great coffee to start the day.', cat:'☕ Coffee', t:'' },
+    { time:'Morning', place:'Long Wharf, Harborwalk & Rose Kennedy Greenway', note:'The Greenway is great for a 4-year-old to run around — fountains and open space.', cat:'🌳 Park · Kid Fave', t:'' },
+    { time:'Midday — North End', place:'Hanover Street, Paul Revere Mall & Old North Area', note:'Wander the Italian bakeries on the way to lunch.', cat:'🧱 History', t:'' },
+    { time:'Lunch', place:'Regina Pizza', note:'Classic North End slice.', cat:'🍕 Food', t:'' },
+    { time:'Dessert', place:'Bova\'s Bakery', note:'Cannoli, cookies, pastries. Flexible afternoon after this — head back whenever everyone feels like it.', cat:'🍪 Food', t:'' }
   ]},
-  { day:'TUE', stops:[
-    { time:'Morning', place:'Boston Children\'s Museum', note:'Tailor-made for a 4-year-old. Climbing structures, water play, hands-on everything. One of the best kid spots in the entire city. Budget 2-3 hours minimum.', cat:'🧩 Kid Fave', t:'T: South Station + short walk' },
-    { time:'Afternoon', place:'Charles River Esplanade', note:'This is what locals actually do on a nice day. Walk, picnic, watch the river. Your son can run freely, you grab a bench. Stunning skyline views and zero tourist crowds.', cat:'🌊 Local Gem', t:'T: Charles/MGH (Red Line)' },
-    { time:'Evening', place:'Local Pub Night — J.J. Foley\'s or Mr. Dooley\'s', note:'Classic old-school Irish pubs that locals actually use. Dark wood, sports on TV, locals yelling about the Bruins. This is the real Boston pub experience.', cat:'🍺 Local Pub', t:'T: Downtown Crossing' }
+  { day:'THU 9/24', stops:[
+    { time:'Morning — Freedom Trail', place:'Boston Common to Faneuil Hall', note:'Massachusetts State House, Granary Burying Ground, King\'s Chapel, Old State House, Faneuil Hall.', cat:'🧱 History', t:'T: Park St' },
+    { time:'Lunch', place:'Boston Public Market', note:'One of the best local food halls in Boston — worth prioritizing over Quincy Market for quality.', cat:'🛒 Food · Local Tip', t:'' },
+    { time:'Afternoon', place:'Newbury Street', note:'Pavement Coffee stop, then window shop the brownstones on Newbury Street.', cat:'☕ Coffee · Shopping', t:'' },
+    { time:'Late Afternoon', place:'Public Garden & Charles River Esplanade', note:'Playgrounds and river views — a nice wind-down before dinner.', cat:'🌊 Park', t:'' },
+    { time:'Dinner', place:'Beacon Hill or the North End', note:'Whichever the group is in the mood for.', cat:'🍽️ Food', t:'' }
   ]},
-  { day:'WED', stops:[
-    { time:'All Day', place:'Fenway Park', note:'Check if the Red Sox are playing — if yes, prioritize getting tickets. Even without a game, the ballpark tour covers the Green Monster, manual scoreboard, and dugout. Oldest park in MLB.', cat:'⚾ Sports · Must Do', t:'T: Kenmore (Green Line)' },
-    { time:'Afternoon', place:'Fenway Neighborhood Wander', note:'Grab lunch near the park — Tasty Burger is a local go-to. Wander Lansdowne Street and soak up the atmosphere. Very lively even on non-game days.', cat:'🍔 Food · Sports Vibe', t:'Walk from Fenway' },
-    { time:'Evening', place:'View Boston Observation Deck', note:'360° city views from 750 feet up at the Prudential Tower. Low-effort, high-impact. Great for your son — he\'ll go crazy for the views. Book tickets online.', cat:'🏙️ Views', t:'T: Prudential (Green Line)' }
+  { day:'FRI 9/25', stops:[
+    { time:'Breakfast', place:'Pavement Coffee (Fenway)', note:'', cat:'☕ Coffee', t:'' },
+    { time:'Morning', place:'Fenway Park Wander', note:'Walk around the park, Jersey Street, the team store & statues.', cat:'⚾ Sports', t:'T: Kenmore (Green Line)' },
+    { time:'Lunch', place:'Tasty Burger', note:'Local go-to right by the park.', cat:'🍔 Food', t:'' },
+    { time:'Afternoon', place:'Prudential Center & Tree House Brewing', note:'If one paid attraction beyond the ballgames and Salem sounds appealing, View Boston Observation Deck pairs well with this stop — panoramic views from the Prudential Tower.', cat:'🏙️ Views · Optional', t:'' },
+    { time:'Dinner', place:'Time Out Market', note:'Easy evening back at the hotel after.', cat:'🍽️ Food', t:'' }
   ]},
-  { day:'THU', stops:[
-    { time:'Morning', place:'Museum of Science', note:'Hands-on exhibits, lightning shows, dinosaurs, planetarium. Great mix of fun and learning. Your 4-year-old will be completely absorbed. Allow 3+ hours.', cat:'🔬 Kid Fave · Science', t:'T: Science Park (Green Line)' },
-    { time:'Afternoon', place:'Harvard Square, Cambridge', note:'Red Line straight to Harvard. Let your son run the Yard while you grab coffee. Wander the quirky shops on Brattle St. The Mapparium (giant glass globe you walk inside) is genuinely mind-blowing.', cat:'🎓 Cambridge · Hidden Gem', t:'T: Harvard (Red Line)' },
-    { time:'Evening', place:'Cambridge Dinner', note:'Stay in Cambridge — locals love it over there. Harvest on Brattle Street is a classic. Or hit a casual spot in Harvard Square. Way more local vibe than downtown Boston dining.', cat:'🍽️ Local Eats', t:'T: Harvard (Red Line)' }
+  { day:'SAT 9/26', stops:[
+    { time:'Early Morning', place:'Walk to Long Wharf → Salem Ferry', note:'Head out early to make the most of the day.', cat:'⛴️ Travel', t:'' },
+    { time:'Enjoy Salem', place:'Haunted Happenings, Historic Downtown', note:'Street performers & shopping in Salem\'s downtown.', cat:'🎃 Salem', t:'' },
+    { time:'Lunch', place:'Wherever Looks Good', note:'Plenty of options around downtown Salem.', cat:'🍽️ Food', t:'' },
+    { time:'Afternoon', place:'Salem Willows', note:'Ice cream, ocean views, and a playground.', cat:'🍦 Kid Fave', t:'' },
+    { time:'Evening', place:'Return Ferry, then Relaxing Dinner', note:'Back in Boston for a low-key dinner.', cat:'⛴️ Travel · Food', t:'' }
   ]},
-  { day:'FRI', stops:[
-    { time:'Morning', place:'Beacon Hill + Acorn Street', note:'Last morning stroll through Boston\'s most beautiful neighborhood. Gas-lit cobblestone streets, brick rowhouses. Acorn Street is the most photographed street in America. Grab a coffee on Charles Street.', cat:'📸 Architecture · Scenic', t:'T: Charles/MGH' },
-    { time:'Afternoon', place:'Final Dunkin\' Run', note:'Boston runs on Dunkin\'. Order a large iced coffee and say "regulah" — that means cream and sugar. Non-negotiable Boston farewell ritual.', cat:'☕ Boston Tradition', t:'Everywhere' },
-    { time:'Departure', place:'Wicked Good Trip, Kid 🦞', note:'You survived the one-way streets, the accents, and the rotaries. No car needed all week. You ate great, drank great, and your son has Boston memories for life. Come back for the Marathon.', cat:'👋 Goodbye', t:'' }
+  { day:'SUN 9/27', stops:[
+    { time:'Breakfast', place:'Pavement Coffee (Fenway)', note:'', cat:'☕ Coffee', t:'' },
+    { time:'Morning', place:'Fenway & Jersey Street', note:'Photos, the team store, and watching batting practice outside the park.', cat:'⚾ Sports', t:'' },
+    { time:'Lunch', place:'Time Out Market or Tasty Burger', note:'', cat:'🍽️ Food', t:'' },
+    { time:'3:05 PM · Game Time', place:'Red Sox vs. Cubs — Fenway Park', note:'The last full day of the trip — celebrate it at the ballpark.', cat:'⚾ Must Do', t:'T: Kenmore (Green Line)' }
+  ]},
+  { day:'MON 9/28', stops:[
+    { time:'Morning', place:'Breakfast — Hotel or Nearby Cafe', note:'Relaxed last breakfast before packing up.', cat:'🍽️ Food', t:'' },
+    { time:'Departure', place:'Pack Up & Head to the Airport', note:'Safe travels home — what a week!', cat:'👋 Goodbye', t:'' }
   ]}
 ];
 
-const TOTAL_STOPS = itinerary.reduce((s,d) => s + d.stops.length, 0); // 21
+const TOTAL_STOPS = itinerary.reduce((s,d) => s + d.stops.length, 0); // 33
 
 // CHECKLIST STATE — persists via localStorage
 function getChecked() {
@@ -716,7 +682,7 @@ function selectDay(btn, i) {
 }
 
 // CLAUDE CHAT
-const SYSTEM_PROMPT = `You are a knowledgeable, warm Boston travel guide helping Bobby, who is visiting Boston for 7 days with his wife and 4-year-old son. They are staying at Hotel Indigo in Boston. They love pubs, sports, parks, attractions, history, food — both adult and kid-friendly. They want to use the T (subway) as much as possible and avoid driving. Mix tourist highlights with genuine local spots. Give concise, practical, insider advice. Occasionally use Boston slang naturally (wicked, pissah, the T, Dunks, etc.). Keep responses to 2-4 sentences unless more detail is genuinely needed.`;
+const SYSTEM_PROMPT = `You are a knowledgeable, warm Boston travel guide helping Bobby, who is visiting Boston Sept 21–28, 2026 (8 days) with his wife and 4-year-old son. They are staying at the Wyndham Boston Beacon Hill. Highlights of their trip include a Bruins game, a day trip to Salem, and a Red Sox vs. Cubs game at Fenway. They love pubs, sports, parks, attractions, history, food — both adult and kid-friendly. They want to use the T (subway) and ferries as much as possible and avoid driving. Mix tourist highlights with genuine local spots. Give concise, practical, insider advice. Occasionally use Boston slang naturally (wicked, pissah, the T, Dunks, etc.). Keep responses to 2-4 sentences unless more detail is genuinely needed.`;
 
 const history = [];
 let msgN = 0;
@@ -934,221 +900,9 @@ async function fetchWeather(attempt = 1) {
   }
 }
 
-// ── TRIP TOOLS ────────────────────────────────────────────
-
-// Sub-tab switcher
-function switchSub(sub) {
-  ['budget','wishlist','notes'].forEach(s => {
-    document.getElementById('subpanel-'+s).style.display = s===sub ? 'block' : 'none';
-    const btn = document.getElementById('sub-'+s);
-    btn.style.background = s===sub ? 'var(--brick)' : 'var(--surface)';
-    btn.style.color = s===sub ? 'white' : 'var(--muted)';
-    btn.style.borderColor = s===sub ? 'var(--brick)' : 'var(--border)';
-    btn.style.borderWidth = s===sub ? '2px' : '1px';
-  });
-}
-
-// ── BUDGET ────────────────────────────────────────────────
-let budgetCat = 'food';
-function setBudgetCat(cat) {
-  budgetCat = cat;
-  const food = document.getElementById('cat-food');
-  const act  = document.getElementById('cat-act');
-  food.style.borderWidth = cat==='food' ? '2px' : '1px';
-  food.style.borderColor = cat==='food' ? 'var(--brick)' : 'var(--border)';
-  food.style.background  = cat==='food' ? 'var(--brick-dim)' : 'var(--surface2)';
-  food.style.color       = cat==='food' ? 'var(--text)' : 'var(--muted)';
-  act.style.borderWidth  = cat==='act' ? '2px' : '1px';
-  act.style.borderColor  = cat==='act' ? 'var(--brick)' : 'var(--border)';
-  act.style.background   = cat==='act' ? 'var(--brick-dim)' : 'var(--surface2)';
-  act.style.color        = cat==='act' ? 'var(--text)' : 'var(--muted)';
-}
-
-function getBudget() {
-  try { return JSON.parse(localStorage.getItem('beantown_budget') || '[]'); } catch(e) { return []; }
-}
-function saveBudget(d) {
-  try { localStorage.setItem('beantown_budget', JSON.stringify(d)); } catch(e) {}
-}
-
-function addBudgetEntry() {
-  const desc = document.getElementById('budgetDesc').value.trim();
-  const amt  = parseFloat(document.getElementById('budgetAmt').value);
-  if (!desc || isNaN(amt) || amt <= 0) return;
-  const entries = getBudget();
-  entries.push({ id: Date.now(), cat: budgetCat, desc, amt });
-  saveBudget(entries);
-  document.getElementById('budgetDesc').value = '';
-  document.getElementById('budgetAmt').value = '';
-  renderBudget();
-}
-
-function deleteBudgetEntry(id) {
-  saveBudget(getBudget().filter(e => e.id !== id));
-  renderBudget();
-}
-
-function renderBudget() {
-  const entries = getBudget();
-  const food = entries.filter(e => e.cat==='food');
-  const act  = entries.filter(e => e.cat==='act');
-  const sumFood = food.reduce((s,e) => s+e.amt, 0);
-  const sumAct  = act.reduce((s,e) => s+e.amt, 0);
-  const grand   = sumFood + sumAct;
-
-  document.getElementById('budgetFoodTotal').textContent = '$'+sumFood.toFixed(2);
-  document.getElementById('budgetFoodCount').textContent = food.length+' entr'+(food.length===1?'y':'ies');
-  document.getElementById('budgetActTotal').textContent  = '$'+sumAct.toFixed(2);
-  document.getElementById('budgetActCount').textContent  = act.length+' entr'+(act.length===1?'y':'ies');
-  document.getElementById('budgetGrandTotal').textContent = '$'+grand.toFixed(2);
-
-  const list = document.getElementById('budgetList');
-  if (!entries.length) {
-    list.innerHTML = '<div style="text-align:center;color:var(--muted);font-size:13px;padding:20px 0;">No expenses yet — add your first one above.</div>';
-    return;
-  }
-  list.innerHTML = [...entries].reverse().map(e => `
-    <div style="display:flex;align-items:center;justify-content:space-between;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px 14px;margin-bottom:7px;">
-      <div style="display:flex;align-items:center;gap:10px;">
-        <span style="font-size:18px;">${e.cat==='food'?'🍽️':'🎟️'}</span>
-        <div>
-          <div style="font-size:13px;font-weight:500;color:var(--text);">${e.desc}</div>
-          <div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;">${e.cat==='food'?'Food & Drinks':'Activity'}</div>
-        </div>
-      </div>
-      <div style="display:flex;align-items:center;gap:10px;">
-        <span style="font-size:15px;font-weight:600;color:var(--gold);">$${e.amt.toFixed(2)}</span>
-        <button onclick="deleteBudgetEntry(${e.id})" style="background:none;border:none;color:var(--muted);font-size:16px;cursor:pointer;padding:0 2px;line-height:1;">✕</button>
-      </div>
-    </div>`).join('');
-}
-
-// ── WISHLIST ──────────────────────────────────────────────
-let wlCat = 'try';
-function setWlCat(cat) {
-  wlCat = cat;
-  const t = document.getElementById('wl-cat-try');
-  const b = document.getElementById('wl-cat-been');
-  t.style.borderWidth = cat==='try' ? '2px' : '1px';
-  t.style.borderColor = cat==='try' ? 'var(--gold)' : 'var(--border)';
-  t.style.background  = cat==='try' ? 'var(--gold-dim)' : 'var(--surface2)';
-  t.style.color       = cat==='try' ? 'var(--text)' : 'var(--muted)';
-  b.style.borderWidth = cat==='been' ? '2px' : '1px';
-  b.style.borderColor = cat==='been' ? 'var(--gold)' : 'var(--border)';
-  b.style.background  = cat==='been' ? 'var(--gold-dim)' : 'var(--surface2)';
-  b.style.color       = cat==='been' ? 'var(--text)' : 'var(--muted)';
-}
-
-function getWishlist() {
-  try { return JSON.parse(localStorage.getItem('beantown_wishlist') || '[]'); } catch(e) { return []; }
-}
-function saveWishlist(d) {
-  try { localStorage.setItem('beantown_wishlist', JSON.stringify(d)); } catch(e) {}
-}
-
-function addWlEntry() {
-  const name = document.getElementById('wlName').value.trim();
-  const note = document.getElementById('wlNote').value.trim();
-  if (!name) return;
-  const list = getWishlist();
-  list.push({ id: Date.now(), cat: wlCat, name, note });
-  saveWishlist(list);
-  document.getElementById('wlName').value = '';
-  document.getElementById('wlNote').value = '';
-  renderWishlist();
-}
-
-function deleteWlEntry(id) {
-  saveWishlist(getWishlist().filter(e => e.id !== id));
-  renderWishlist();
-}
-
-function moveWlEntry(id) {
-  const list = getWishlist();
-  const idx = list.findIndex(e => e.id === id);
-  if (idx < 0) return;
-  list[idx].cat = list[idx].cat === 'try' ? 'been' : 'try';
-  saveWishlist(list);
-  renderWishlist();
-}
-
-function renderWlSection(entries, containerId, emptyMsg) {
-  const el = document.getElementById(containerId);
-  if (!entries.length) {
-    el.innerHTML = `<div style="text-align:center;color:var(--muted);font-size:13px;padding:10px 0 20px;">${emptyMsg}</div>`;
-    return;
-  }
-  el.innerHTML = entries.map(e => `
-    <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px 14px;margin-bottom:7px;">
-      <div style="display:flex;align-items:center;justify-content:space-between;">
-        <span style="font-size:13px;font-weight:500;color:var(--text);">${e.name}</span>
-        <div style="display:flex;gap:8px;align-items:center;">
-          <button onclick="moveWlEntry(${e.id})" title="${e.cat==='try'?'Mark as visited':'Move back to wishlist'}" style="background:none;border:1px solid var(--border);border-radius:6px;color:var(--muted);font-size:11px;padding:3px 7px;cursor:pointer;">${e.cat==='try'?'✓ Visited':'↩ Undo'}</button>
-          <button onclick="deleteWlEntry(${e.id})" style="background:none;border:none;color:var(--muted);font-size:16px;cursor:pointer;padding:0 2px;line-height:1;">✕</button>
-        </div>
-      </div>
-      ${e.note ? `<div style="font-size:11px;color:var(--muted);margin-top:5px;font-weight:300;">${e.note}</div>` : ''}
-    </div>`).join('');
-}
-
-function renderWishlist() {
-  const all = getWishlist();
-  renderWlSection(all.filter(e=>e.cat==='try'),  'wlTryList',  'Nothing on the list yet — add spots you want to try!');
-  renderWlSection(all.filter(e=>e.cat==='been'), 'wlBeenList', 'No visited spots yet.');
-}
-
-// ── NOTES ─────────────────────────────────────────────────
-function getNotes() {
-  try { return JSON.parse(localStorage.getItem('beantown_notes') || '[]'); } catch(e) { return []; }
-}
-function saveNotes(d) {
-  try { localStorage.setItem('beantown_notes', JSON.stringify(d)); } catch(e) {}
-}
-
-function addNote() {
-  const day  = document.getElementById('noteDay').value;
-  const text = document.getElementById('noteText').value.trim();
-  if (!text) return;
-  const notes = getNotes();
-  notes.push({ id: Date.now(), day, text });
-  saveNotes(notes);
-  document.getElementById('noteText').value = '';
-  renderNotes();
-}
-
-function deleteNote(id) {
-  saveNotes(getNotes().filter(n => n.id !== id));
-  renderNotes();
-}
-
-function renderNotes() {
-  const notes = getNotes();
-  const el = document.getElementById('notesList');
-  if (!notes.length) {
-    el.innerHTML = '<div style="text-align:center;color:var(--muted);font-size:13px;padding:20px 0;">No memories yet — jot down a highlight each day!</div>';
-    return;
-  }
-  el.innerHTML = [...notes].reverse().map(n => `
-    <div style="background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--gold);border-radius:var(--radius-sm);padding:14px 16px;margin-bottom:8px;">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
-        <span style="font-size:10px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--gold);">${n.day}</span>
-        <button onclick="deleteNote(${n.id})" style="background:none;border:none;color:var(--muted);font-size:16px;cursor:pointer;padding:0;line-height:1;">✕</button>
-      </div>
-      <div style="font-size:13px;color:var(--text);line-height:1.6;font-weight:300;">${n.text}</div>
-    </div>`).join('');
-}
-
-// ── INIT TRIP TOOLS ───────────────────────────────────────
-function initTripTools() {
-  renderBudget();
-  renderWishlist();
-  renderNotes();
-}
-
 // INIT
 buildDays();
 fetchWeather();
-initTripTools();
 registerSW();
 </script>
 </body>
