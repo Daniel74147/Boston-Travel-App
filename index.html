@@ -19,13 +19,13 @@
 :root {
   color-scheme: dark;
   --bg: #0F1117;
-  --surface: #181C26;
-  --surface2: #1E2333;
+  --surface: #1A1F30;
+  --surface2: #212840;
   --border: rgba(255,255,255,0.07);
-  --brick: #C0392B;
-  --brick-dim: rgba(192,57,43,0.15);
-  --gold: #D4A843;
-  --gold-dim: rgba(212,168,67,0.12);
+  --brick: #A11F3D;
+  --brick-dim: rgba(161,31,61,0.15);
+  --gold: #D9A94A;
+  --gold-dim: rgba(217,169,74,0.12);
   --text: #F0EEE8;
   --muted: rgba(240,238,232,0.4);
   --muted2: rgba(240,238,232,0.2);
@@ -144,7 +144,7 @@ html, body {
 .stop-tags { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 10px; }
 .tag { font-size: 10px; font-weight: 500; letter-spacing: 0.8px; text-transform: uppercase; padding: 3px 9px; border-radius: 6px; }
 .tag-cat { background: var(--surface2); color: var(--muted); border: 1px solid var(--border); }
-.tag-t { background: var(--gold-dim); color: var(--gold); border: 1px solid rgba(212,168,67,0.2); }
+.tag-t { background: var(--gold-dim); color: var(--gold); border: 1px solid rgba(217,169,74,0.2); }
 .tag-done { background: rgba(76,175,80,0.12); color: #81C784; border: 1px solid rgba(76,175,80,0.25); }
 
 /* CUSTOM CHECKBOX */
@@ -220,11 +220,11 @@ html, body {
 .nav-item.active .nav-label { color: var(--gold); }
 
 /* INSTALL BANNER */
-#installBanner { display: none; position: fixed; top: 0; left: 50%; transform: translateX(-50%); width: 100%; max-width: 430px; background: #1E2333; border-bottom: 1px solid rgba(212,168,67,0.25); padding: 12px 16px; z-index: 200; align-items: center; gap: 12px; }
+#installBanner { display: none; position: fixed; top: 0; left: 50%; transform: translateX(-50%); width: 100%; max-width: 430px; background: #212840; border-bottom: 1px solid rgba(217,169,74,0.25); padding: 12px 16px; z-index: 200; align-items: center; gap: 12px; }
 #installBanner.show { display: flex; }
 .install-title { font-size: 13px; font-weight: 600; color: #F0EEE8; }
 .install-sub { font-size: 11px; color: rgba(240,238,232,0.45); margin-top: 1px; }
-.install-btn { background: #C0392B; border: none; color: white; padding: 8px 14px; border-radius: 9px; font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 600; cursor: pointer; white-space: nowrap; flex-shrink: 0; }
+.install-btn { background: #A11F3D; border: none; color: white; padding: 8px 14px; border-radius: 9px; font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 600; cursor: pointer; white-space: nowrap; flex-shrink: 0; }
 .install-close { background: none; border: none; color: rgba(240,238,232,0.35); font-size: 20px; cursor: pointer; padding: 0 2px; flex-shrink: 0; line-height: 1; }
 
 /* CELEBRATION */
@@ -233,6 +233,34 @@ html, body {
 
 .loading-dots::after { content: ''; animation: ld 1.2s steps(4,end) infinite; }
 @keyframes ld { 0%,20%{content:''} 40%{content:'.'} 60%{content:'..'} 80%,100%{content:'…'} }
+
+/* COUNTDOWN */
+.countdown-card { background: linear-gradient(135deg, var(--brick), #6E1529); border-radius: var(--radius); padding: 18px 20px; margin-bottom: 14px; display: flex; align-items: center; justify-content: space-between; }
+.countdown-num { font-family: 'Playfair Display', serif; font-size: 40px; font-weight: 600; color: white; line-height: 1; }
+.countdown-lbl { font-size: 11px; color: rgba(255,255,255,0.75); letter-spacing: 1.5px; text-transform: uppercase; margin-top: 4px; }
+.countdown-icon { font-size: 34px; }
+
+/* NEXT UP */
+.nextup-tag { display:inline-block; background: var(--gold-dim); color: var(--gold); font-size:10px; font-weight:600; letter-spacing:1.5px; text-transform:uppercase; padding:3px 10px; border-radius:100px; margin-bottom:8px; }
+
+/* CONFIRMATION FIELD */
+.conf-wrap { margin-top: 10px; }
+.conf-input { width: 100%; background: var(--surface2); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 8px 11px; font-family: 'Inter', sans-serif; font-size: 12px; color: var(--text); outline: none; }
+.conf-input::placeholder { color: var(--muted2); }
+.conf-label { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 5px; display: block; }
+
+/* DIRECTIONS LINK TAG */
+.tag-dir { background: var(--brick-dim); color: var(--brick); border: 1px solid rgba(161,31,61,0.25); text-decoration: none; cursor: pointer; }
+
+/* FILTER CHIPS */
+.filter-bar { display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none; padding-bottom: 4px; margin-bottom: 12px; }
+.filter-bar::-webkit-scrollbar { display: none; }
+.filter-chip { white-space: nowrap; flex-shrink: 0; background: var(--surface); border: 1px solid var(--border); border-radius: 100px; padding: 7px 14px; font-size: 11px; font-weight: 500; color: var(--muted); cursor: pointer; font-family: 'Inter', sans-serif; transition: all 0.18s; }
+.filter-chip.active { background: var(--brick); border-color: var(--brick); color: white; }
+.filter-day-pill { display: inline-block; font-size: 10px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--gold); margin-bottom: 6px; }
+
+/* DAY FORECAST */
+.day-wx { font-size: 11px; color: var(--muted); margin-bottom: 10px; padding: 0 2px; }
 </style>
 </head>
 <body>
@@ -278,6 +306,8 @@ html, body {
     <div class="wx-icon" id="wxIcon">⏳</div>
   </div>
 
+  <div id="countdownCard"></div>
+
   <div class="sec">Trip Progress</div>
   <div class="trip-summary">
     <div class="trip-summary-row">
@@ -289,19 +319,11 @@ html, body {
     </div>
   </div>
 
-  <div class="sec">Today's Highlight</div>
-  <div class="card">
-    <div class="card-eyebrow">Must Do · Day 1</div>
-    <div class="card-title">Boston Common + North End</div>
-    <div class="card-body">Start at the Common — let your son run wild at Frog Pond. Then T over to the North End for your first real Boston dinner on Hanover Street. Cannoli from Mike's Pastry is non-negotiable. No car needed — ever.</div>
-  </div>
+  <div class="sec" id="highlightSecLabel">Today's Highlight</div>
+  <div id="highlightCard"></div>
 
   <div class="sec">Boston Phrase of the Day</div>
-  <div class="phrase-card">
-    <div class="phrase-main">"Wicked pissah, kid."</div>
-    <div class="phrase-eng">That's absolutely excellent / impressive.</div>
-    <div class="phrase-pron">WICK-id PIH-shah — use it liberally</div>
-  </div>
+  <div id="phraseCard"></div>
 
   <div class="sec">Quick Access</div>
   <div class="quick-grid">
@@ -335,12 +357,14 @@ html, body {
 
 <!-- PLAN -->
 <div class="panel" id="panel-plan">
+  <div class="filter-bar" id="filterBar"></div>
   <div class="day-scroller" id="dayScroller"></div>
   <div id="dayProgressBar" class="day-progress-bar">
     <span class="day-prog-label" id="dayProgLabel">0 of 3 done</span>
     <div class="day-prog-track"><div class="day-prog-fill" id="dayProgFill" style="width:0%"></div></div>
     <span class="day-prog-pct" id="dayProgPct">0%</span>
   </div>
+  <div class="day-wx" id="dayWx"></div>
   <div id="itineraryContent"></div>
 </div>
 
@@ -502,58 +526,60 @@ function switchTab(t) {
 
 // ITINERARY DATA
 const itinerary = [
-  { day:'MON 9/21', stops:[
-    { time:'6:00 PM · Arrive', place:'Check In — Wyndham Boston Beacon Hill', note:'Uber straight to the hotel, check in, unpack, relax. Optional short stroll down Charles Street if everyone still has energy.', cat:'🏨 Home Base', t:'' },
+  { day:'MON 9/21', date:'2026-09-21', stops:[
+    { time:'6:00 PM · Arrive', place:'Check In — Wyndham Boston Beacon Hill', note:'Uber straight to the hotel, check in, unpack, relax. Optional short stroll down Charles Street if everyone still has energy.', cat:'🏨 Home Base', t:'', ticket:true },
     { time:'Late Snack / Dinner', place:'Bova\'s Bakery', note:'Open 24 hours — perfect for a late arrival. Or grab dinner near the hotel instead. Lights out around 8:30–9:00 PM to rest up for the week ahead.', cat:'🥐 Food', t:'Near hotel' }
   ]},
-  { day:'TUE 9/22', stops:[
+  { day:'TUE 9/22', date:'2026-09-22', stops:[
     { time:'Morning', place:'Beacon Hill Wander', note:'Charles St & Acorn Street, Louisburg Square, Boston Common & Public Garden, the "Make Way for Ducklings" statues, and a playground stop.', cat:'📸 Beacon Hill · Kid Fave', t:'Walk from hotel' },
     { time:'Lunch', place:'Quincy Market', note:'Walk Faneuil Hall after lunch. (Tweak to consider: swap this lunch to Boston Public Market and save Quincy Market for a quick walk-through instead.)', cat:'🛒 Food', t:'T: Government Center' },
     { time:'Afternoon', place:'Christopher Columbus Waterfront Park', note:'Long Wharf & Harborwalk views. Back to the hotel around 4:00 PM to rest and recharge before dinner.', cat:'🌊 Park', t:'Walk from Faneuil Hall' },
     { time:'Dinner', place:'Hub Hall or Banners Kitchen & Tap', note:'Casual dinner before the game — walk back to the hotel afterward.', cat:'🍽️ Food', t:'' },
-    { time:'Night', place:'Bruins Game', note:'Evening at the game — walk back to the hotel after.', cat:'🏒 Sports', t:'' }
+    { time:'Night', place:'Bruins Game', note:'Evening at the game — walk back to the hotel after.', cat:'🏒 Sports', t:'', ticket:true }
   ]},
-  { day:'WED 9/23', stops:[
+  { day:'WED 9/23', date:'2026-09-23', stops:[
     { time:'Breakfast', place:'Thinking Cup', note:'Great coffee to start the day.', cat:'☕ Coffee', t:'' },
     { time:'Morning', place:'Long Wharf, Harborwalk & Rose Kennedy Greenway', note:'The Greenway is great for a 4-year-old to run around — fountains and open space.', cat:'🌳 Park · Kid Fave', t:'' },
     { time:'Midday — North End', place:'Hanover Street, Paul Revere Mall & Old North Area', note:'Wander the Italian bakeries on the way to lunch.', cat:'🧱 History', t:'' },
     { time:'Lunch', place:'Regina Pizza', note:'Classic North End slice.', cat:'🍕 Food', t:'' },
     { time:'Dessert', place:'Bova\'s Bakery', note:'Cannoli, cookies, pastries. Flexible afternoon after this — head back whenever everyone feels like it.', cat:'🍪 Food', t:'' }
   ]},
-  { day:'THU 9/24', stops:[
+  { day:'THU 9/24', date:'2026-09-24', stops:[
     { time:'Morning — Freedom Trail', place:'Boston Common to Faneuil Hall', note:'Massachusetts State House, Granary Burying Ground, King\'s Chapel, Old State House, Faneuil Hall.', cat:'🧱 History', t:'T: Park St' },
     { time:'Lunch', place:'Boston Public Market', note:'One of the best local food halls in Boston — worth prioritizing over Quincy Market for quality.', cat:'🛒 Food · Local Tip', t:'' },
     { time:'Afternoon', place:'Newbury Street', note:'Pavement Coffee stop, then window shop the brownstones on Newbury Street.', cat:'☕ Coffee · Shopping', t:'' },
     { time:'Late Afternoon', place:'Public Garden & Charles River Esplanade', note:'Playgrounds and river views — a nice wind-down before dinner.', cat:'🌊 Park', t:'' },
     { time:'Dinner', place:'Beacon Hill or the North End', note:'Whichever the group is in the mood for.', cat:'🍽️ Food', t:'' }
   ]},
-  { day:'FRI 9/25', stops:[
+  { day:'FRI 9/25', date:'2026-09-25', stops:[
     { time:'Breakfast', place:'Pavement Coffee (Fenway)', note:'', cat:'☕ Coffee', t:'' },
     { time:'Morning', place:'Fenway Park Wander', note:'Walk around the park, Jersey Street, the team store & statues.', cat:'⚾ Sports', t:'T: Kenmore (Green Line)' },
     { time:'Lunch', place:'Tasty Burger', note:'Local go-to right by the park.', cat:'🍔 Food', t:'' },
     { time:'Afternoon', place:'Prudential Center & Tree House Brewing', note:'If one paid attraction beyond the ballgames and Salem sounds appealing, View Boston Observation Deck pairs well with this stop — panoramic views from the Prudential Tower.', cat:'🏙️ Views · Optional', t:'' },
     { time:'Dinner', place:'Time Out Market', note:'Easy evening back at the hotel after.', cat:'🍽️ Food', t:'' }
   ]},
-  { day:'SAT 9/26', stops:[
-    { time:'Early Morning', place:'Walk to Long Wharf → Salem Ferry', note:'Head out early to make the most of the day.', cat:'⛴️ Travel', t:'' },
+  { day:'SAT 9/26', date:'2026-09-26', stops:[
+    { time:'Early Morning', place:'Walk to Long Wharf → Salem Ferry', note:'Head out early to make the most of the day.', cat:'⛴️ Travel', t:'', ticket:true },
     { time:'Enjoy Salem', place:'Haunted Happenings, Historic Downtown', note:'Street performers & shopping in Salem\'s downtown.', cat:'🎃 Salem', t:'' },
     { time:'Lunch', place:'Wherever Looks Good', note:'Plenty of options around downtown Salem.', cat:'🍽️ Food', t:'' },
     { time:'Afternoon', place:'Salem Willows', note:'Ice cream, ocean views, and a playground.', cat:'🍦 Kid Fave', t:'' },
     { time:'Evening', place:'Return Ferry, then Relaxing Dinner', note:'Back in Boston for a low-key dinner.', cat:'⛴️ Travel · Food', t:'' }
   ]},
-  { day:'SUN 9/27', stops:[
+  { day:'SUN 9/27', date:'2026-09-27', stops:[
     { time:'Breakfast', place:'Pavement Coffee (Fenway)', note:'', cat:'☕ Coffee', t:'' },
     { time:'Morning', place:'Fenway & Jersey Street', note:'Photos, the team store, and watching batting practice outside the park.', cat:'⚾ Sports', t:'' },
     { time:'Lunch', place:'Time Out Market or Tasty Burger', note:'', cat:'🍽️ Food', t:'' },
-    { time:'3:05 PM · Game Time', place:'Red Sox vs. Cubs — Fenway Park', note:'The last full day of the trip — celebrate it at the ballpark.', cat:'⚾ Must Do', t:'T: Kenmore (Green Line)' }
+    { time:'3:05 PM · Game Time', place:'Red Sox vs. Cubs — Fenway Park', note:'The last full day of the trip — celebrate it at the ballpark.', cat:'⚾ Must Do', t:'T: Kenmore (Green Line)', ticket:true }
   ]},
-  { day:'MON 9/28', stops:[
+  { day:'MON 9/28', date:'2026-09-28', stops:[
     { time:'Morning', place:'Breakfast — Hotel or Nearby Cafe', note:'Relaxed last breakfast before packing up.', cat:'🍽️ Food', t:'' },
     { time:'Departure', place:'Pack Up & Head to the Airport', note:'Safe travels home — what a week!', cat:'👋 Goodbye', t:'' }
   ]}
 ];
 
 const TOTAL_STOPS = itinerary.reduce((s,d) => s + d.stops.length, 0); // 33
+const TRIP_START = itinerary[0].date;
+const TRIP_END = itinerary[itinerary.length-1].date;
 
 // CHECKLIST STATE — persists via localStorage
 function getChecked() {
@@ -564,13 +590,31 @@ function saveChecked(state) {
 }
 function stopKey(dayIdx, stopIdx) { return `${dayIdx}_${stopIdx}`; }
 
+// CONFIRMATION / TICKET NOTES — persists via localStorage
+function getConfNotes() {
+  try { return JSON.parse(localStorage.getItem('beantown_conf') || '{}'); } catch(e) { return {}; }
+}
+function saveConfNote(dayIdx, stopIdx, val) {
+  const notes = getConfNotes();
+  notes[stopKey(dayIdx, stopIdx)] = val;
+  try { localStorage.setItem('beantown_conf', JSON.stringify(notes)); } catch(e) {}
+}
+
+// DIRECTIONS — opens Google Maps for a stop
+function mapsUrl(place, dayIdx) {
+  const isSalem = itinerary[dayIdx].date === '2026-09-26';
+  const suffix = isSalem ? ', Salem, MA' : ', Boston, MA';
+  return 'https://maps.google.com/?q=' + encodeURIComponent(place + suffix);
+}
+
 function toggleStop(dayIdx, stopIdx) {
   const state = getChecked();
   const key = stopKey(dayIdx, stopIdx);
   state[key] = !state[key];
   saveChecked(state);
-  renderItinerary(dayIdx);
+  renderCurrentView();
   updateAllProgress();
+  renderHome();
   // Animate the day button
   const btn = document.querySelectorAll('.day-btn')[dayIdx];
   if (btn) { btn.classList.add('popped'); setTimeout(() => btn.classList.remove('popped'), 300); }
@@ -611,51 +655,110 @@ function updateAllProgress() {
     });
     btn.classList.toggle('all-done', dayDone === dayTotal);
   });
+
+  updateHeaderPill();
 }
 
 let currentDay = 0;
+let activeFilter = 'All';
+const FILTER_TAGS = ['Kid Fave','Food','Sports','History','Coffee','Park','Views','Salem'];
+
+// Renders a single stop card (shared by day view and filtered view)
+function stopCardHtml(dayIdx, si, s, showDayPill) {
+  const key = stopKey(dayIdx, si);
+  const state = getChecked();
+  const isDone = !!state[key];
+  const tTag = s.t ? `<span class="tag tag-t">🚇 ${s.t}</span>` : '';
+  const doneTag = isDone ? `<span class="tag tag-done">✓ Done</span>` : '';
+  const dirTag = `<a class="tag tag-dir" href="${mapsUrl(s.place, dayIdx)}" target="_blank">🧭 Directions</a>`;
+  const dayPill = showDayPill ? `<div class="filter-day-pill">${itinerary[dayIdx].day}</div>` : '';
+
+  let confHtml = '';
+  if (s.ticket) {
+    const notes = getConfNotes();
+    const val = (notes[key] || '').replace(/"/g, '&quot;');
+    confHtml = `
+      <div class="conf-wrap">
+        <span class="conf-label">🎫 Confirmation / Ticket Note</span>
+        <input class="conf-input" placeholder="e.g. confirmation #, ticket location…" value="${val}" onchange="saveConfNote(${dayIdx},${si},this.value)" />
+      </div>`;
+  }
+
+  return `
+    <div class="stop-card ${isDone ? 'checked' : ''}" id="stop-${dayIdx}-${si}">
+      <div class="stop-accent"></div>
+      <div class="stop-body">
+        ${dayPill}
+        <div class="stop-header">
+          <div class="stop-header-left">
+            <div class="stop-time">${s.time}</div>
+            <div class="stop-place">${s.place}</div>
+          </div>
+          <button class="check-btn" onclick="toggleStop(${dayIdx},${si})" aria-label="Mark as done">
+            ${isDone ? '✓' : ''}
+          </button>
+        </div>
+        <div class="stop-note">${s.note}</div>
+        <div class="stop-tags">
+          <span class="tag tag-cat">${s.cat}</span>
+          ${tTag}
+          ${dirTag}
+          ${doneTag}
+        </div>
+        ${confHtml}
+      </div>
+    </div>`;
+}
 
 function renderItinerary(dayIdx) {
   const d = itinerary[dayIdx];
-  const state = getChecked();
   const dayDone = getDayDoneCount(dayIdx);
   const dayTotal = d.stops.length;
   const dayPct = Math.round((dayDone / dayTotal) * 100);
 
-  // Day progress bar
   document.getElementById('dayProgLabel').textContent = `${dayDone} of ${dayTotal} done`;
   document.getElementById('dayProgFill').style.width = dayPct + '%';
   document.getElementById('dayProgPct').textContent = dayPct + '%';
+  document.getElementById('dayProgressBar').style.display = 'flex';
+
+  renderDayWeather(dayIdx);
 
   let html = '';
-  d.stops.forEach((s, si) => {
-    const key = stopKey(dayIdx, si);
-    const isDone = !!state[key];
-    const tTag = s.t ? `<span class="tag tag-t">🚇 ${s.t}</span>` : '';
-    const doneTag = isDone ? `<span class="tag tag-done">✓ Done</span>` : '';
-    html += `
-      <div class="stop-card ${isDone ? 'checked' : ''}" id="stop-${dayIdx}-${si}">
-        <div class="stop-accent"></div>
-        <div class="stop-body">
-          <div class="stop-header">
-            <div class="stop-header-left">
-              <div class="stop-time">${s.time}</div>
-              <div class="stop-place">${s.place}</div>
-            </div>
-            <button class="check-btn" onclick="toggleStop(${dayIdx},${si})" aria-label="Mark as done">
-              ${isDone ? '✓' : ''}
-            </button>
-          </div>
-          <div class="stop-note">${s.note}</div>
-          <div class="stop-tags">
-            <span class="tag tag-cat">${s.cat}</span>
-            ${tTag}
-            ${doneTag}
-          </div>
-        </div>
-      </div>`;
-  });
+  d.stops.forEach((s, si) => { html += stopCardHtml(dayIdx, si, s, false); });
   document.getElementById('itineraryContent').innerHTML = html;
+}
+
+function renderFilteredList(tag) {
+  document.getElementById('dayProgressBar').style.display = 'none';
+  document.getElementById('dayWx').innerHTML = '';
+  let html = '';
+  itinerary.forEach((d, di) => {
+    d.stops.forEach((s, si) => {
+      if (s.cat.includes(tag)) html += stopCardHtml(di, si, s, true);
+    });
+  });
+  if (!html) html = `<div style="text-align:center;color:var(--muted);font-size:13px;padding:30px 0;">No stops tagged "${tag}" yet.</div>`;
+  document.getElementById('itineraryContent').innerHTML = html;
+}
+
+function renderCurrentView() {
+  if (activeFilter === 'All') renderItinerary(currentDay);
+  else renderFilteredList(activeFilter);
+}
+
+function setFilter(tag) {
+  activeFilter = tag;
+  document.querySelectorAll('.filter-chip').forEach(c => c.classList.toggle('active', c.dataset.tag === tag));
+  document.getElementById('dayScroller').style.display = tag === 'All' ? 'flex' : 'none';
+  renderCurrentView();
+}
+
+function buildFilterBar() {
+  let html = `<button class="filter-chip active" data-tag="All" onclick="setFilter('All')">All</button>`;
+  FILTER_TAGS.forEach(tag => {
+    html += `<button class="filter-chip" data-tag="${tag}" onclick="setFilter('${tag}')">${tag}</button>`;
+  });
+  document.getElementById('filterBar').innerHTML = html;
 }
 
 function buildDays() {
@@ -669,7 +772,12 @@ function buildDays() {
     </button>`;
   });
   document.getElementById('dayScroller').innerHTML = html;
-  renderItinerary(0);
+  buildFilterBar();
+  currentDay = getDefaultDayIndex();
+  const btns = document.querySelectorAll('.day-btn');
+  btns.forEach(b => b.classList.remove('active'));
+  if (btns[currentDay]) btns[currentDay].classList.add('active');
+  renderItinerary(currentDay);
   updateAllProgress();
 }
 
@@ -680,6 +788,151 @@ function selectDay(btn, i) {
   renderItinerary(i);
   updateAllProgress();
 }
+
+// ── DATE / COUNTDOWN HELPERS ─────────────────────────────
+function todayISO() {
+  const n = new Date();
+  return n.getFullYear() + '-' + String(n.getMonth()+1).padStart(2,'0') + '-' + String(n.getDate()).padStart(2,'0');
+}
+function daysBetween(iso1, iso2) {
+  const a = new Date(iso1 + 'T00:00:00');
+  const b = new Date(iso2 + 'T00:00:00');
+  return Math.round((b - a) / 86400000);
+}
+function getDefaultDayIndex() {
+  const t = todayISO();
+  const idx = itinerary.findIndex(d => d.date === t);
+  if (idx >= 0) return idx;
+  if (t < TRIP_START) return 0;
+  return itinerary.length - 1;
+}
+
+function updateHeaderPill() {
+  const t = todayISO();
+  const pill = document.getElementById('headerDayLabel');
+  if (t < TRIP_START) {
+    const n = daysBetween(t, TRIP_START);
+    pill.textContent = `${n} day${n===1?'':'s'} to go`;
+  } else if (t > TRIP_END) {
+    pill.textContent = 'Trip Complete 🎉';
+  } else {
+    const idx = itinerary.findIndex(d => d.date === t);
+    pill.textContent = `Day ${idx+1} of ${itinerary.length}`;
+  }
+}
+
+// ── HOME: COUNTDOWN + NEXT UP ────────────────────────────
+function findNextStop() {
+  const state = getChecked();
+  const t = todayISO();
+  let startDay = 0;
+  if (t >= TRIP_START && t <= TRIP_END) startDay = itinerary.findIndex(d => d.date === t);
+  else if (t > TRIP_END) return null;
+  for (let di = startDay; di < itinerary.length; di++) {
+    for (let si = 0; si < itinerary[di].stops.length; si++) {
+      if (!state[stopKey(di,si)]) return { dayIdx: di, stopIdx: si, stop: itinerary[di].stops[si] };
+    }
+  }
+  return null;
+}
+
+function renderHome() {
+  const t = todayISO();
+  const countdownEl = document.getElementById('countdownCard');
+  const highlightEl = document.getElementById('highlightCard');
+  const highlightLbl = document.getElementById('highlightSecLabel');
+
+  if (t < TRIP_START) {
+    const n = daysBetween(t, TRIP_START);
+    countdownEl.innerHTML = `
+      <div class="countdown-card">
+        <div>
+          <div class="countdown-num">${n}</div>
+          <div class="countdown-lbl">Day${n===1?'':'s'} Until Boston</div>
+        </div>
+        <div class="countdown-icon">🦞</div>
+      </div>`;
+  } else if (t > TRIP_END) {
+    countdownEl.innerHTML = `
+      <div class="countdown-card">
+        <div>
+          <div class="countdown-num">✓</div>
+          <div class="countdown-lbl">Trip Complete — Wicked Good!</div>
+        </div>
+        <div class="countdown-icon">🦞</div>
+      </div>`;
+  } else {
+    const idx = itinerary.findIndex(d => d.date === t);
+    countdownEl.innerHTML = `
+      <div class="countdown-card">
+        <div>
+          <div class="countdown-num">${idx+1}/${itinerary.length}</div>
+          <div class="countdown-lbl">You're in Boston — Day ${idx+1}</div>
+        </div>
+        <div class="countdown-icon">🦞</div>
+      </div>`;
+  }
+
+  const next = findNextStop();
+  if (!next) {
+    highlightLbl.textContent = 'All Done!';
+    highlightEl.innerHTML = `
+      <div class="card">
+        <div class="card-eyebrow">Wicked Good Trip 🦞</div>
+        <div class="card-title">Every stop checked off</div>
+        <div class="card-body">You made it through the whole itinerary. Hope Boston delivered!</div>
+      </div>`;
+    return;
+  }
+  const isToday = t === itinerary[next.dayIdx].date;
+  highlightLbl.textContent = isToday ? "Up Next" : (t < TRIP_START ? 'First Stop of the Trip' : 'Up Next');
+  highlightEl.innerHTML = `
+    <div class="card">
+      <div class="nextup-tag">${itinerary[next.dayIdx].day} · ${next.stop.time}</div>
+      <div class="card-title">${next.stop.place}</div>
+      <div class="card-body">${next.stop.note}</div>
+      <div class="stop-tags" style="margin-top:12px;">
+        <span class="tag tag-cat">${next.stop.cat}</span>
+        <a class="tag tag-dir" href="${mapsUrl(next.stop.place, next.dayIdx)}" target="_blank">🧭 Directions</a>
+      </div>
+    </div>`;
+}
+
+// ── ROTATING BOSTON PHRASE ───────────────────────────────
+const PHRASES = [
+  { main: '"Wicked pissah, kid."', eng: "That's absolutely excellent / impressive.", pron: 'WICK-id PIH-shah — use it liberally' },
+  { main: '"Regulah."', eng: 'Coffee with cream and sugar — the standard Dunkin\' order.', pron: 'REH-gyu-lah' },
+  { main: '"Bang a uey."', eng: 'Make a U-turn. Common driving/navigation slang.', pron: 'bang a YOO-ee' },
+  { main: '"Packie run."', eng: "A trip to the liquor store (package store).", pron: 'PACK-ee run' },
+  { main: '"The T."', eng: "Boston's subway system — just say \"the T,\" never \"the metro.\"", pron: 'the TEE' },
+  { main: '"Frappe."', eng: 'What Bostonians call a milkshake with ice cream in it.', pron: 'frap (not fra-PAY)' },
+  { main: '"Wicked."', eng: 'Very / extremely. The all-purpose Boston intensifier.', pron: 'WICK-id' },
+  { main: '"Grinder."', eng: 'A submarine sandwich — order it this way at local spots.', pron: 'GRIN-dah' },
+];
+function renderPhrase() {
+  const dayNum = Math.floor(Date.now() / 86400000);
+  const p = PHRASES[dayNum % PHRASES.length];
+  document.getElementById('phraseCard').innerHTML = `
+    <div class="phrase-card">
+      <div class="phrase-main">${p.main}</div>
+      <div class="phrase-eng">${p.eng}</div>
+      <div class="phrase-pron">${p.pron}</div>
+    </div>`;
+}
+
+// ── PER-DAY FORECAST (shown when within wttr.in's 3-day window) ──
+let wxForecastByDate = {};
+function renderDayWeather(dayIdx) {
+  const el = document.getElementById('dayWx');
+  const date = itinerary[dayIdx].date;
+  const fc = wxForecastByDate[date];
+  if (fc) {
+    el.innerHTML = `${fc.icon} Forecast for ${itinerary[dayIdx].day}: ${fc.cond}, high ${fc.high}° / low ${fc.low}°`;
+  } else {
+    el.innerHTML = `Forecast for ${itinerary[dayIdx].day} will show here once within a few days of the date.`;
+  }
+}
+
 
 // CLAUDE CHAT
 const SYSTEM_PROMPT = `You are a knowledgeable, warm Boston travel guide helping Bobby, who is visiting Boston Sept 21–28, 2026 (8 days) with his wife and 4-year-old son. They are staying at the Wyndham Boston Beacon Hill. Highlights of their trip include a Bruins game, a day trip to Salem, and a Red Sox vs. Cubs game at Fenway. They love pubs, sports, parks, attractions, history, food — both adult and kid-friendly. They want to use the T (subway) and ferries as much as possible and avoid driving. Mix tourist highlights with genuine local spots. Give concise, practical, insider advice. Occasionally use Boston slang naturally (wicked, pissah, the T, Dunks, etc.). Keep responses to 2-4 sentences unless more detail is genuinely needed.`;
@@ -889,6 +1142,27 @@ async function fetchWeather(attempt = 1) {
     document.getElementById('wxCond').textContent = cond + ' · High ' + high + '°';
     document.getElementById('wxIcon').textContent = icon;
 
+    // Populate per-day forecast map (wttr.in free tier gives ~3 days)
+    wxForecastByDate = {};
+    (d.weather || []).forEach(day => {
+      const hourly = day.hourly || [];
+      const midday = hourly[4] || hourly[Math.floor(hourly.length/2)] || hourly[0];
+      const dayCode = midday ? parseInt(midday.weatherCode) : null;
+      let dIcon, dCond;
+      if (dayCode === 113) { dIcon = '☀️'; dCond = 'Clear skies'; }
+      else {
+        const wx = wxMap[dayCode] || { icon: '🌡️', cond: 'Mixed' };
+        dIcon = wx.icon; dCond = wx.cond;
+      }
+      wxForecastByDate[day.date] = {
+        icon: dIcon, cond: dCond,
+        high: Math.round(parseFloat(day.maxtempF)),
+        low: Math.round(parseFloat(day.mintempF))
+      };
+    });
+    // Refresh the Plan tab's day-forecast line if it's showing
+    if (typeof currentDay === 'number' && activeFilter === 'All') renderDayWeather(currentDay);
+
   } catch(e) {
     if (attempt < 3) {
       setTimeout(() => fetchWeather(attempt + 1), 2000 * attempt);
@@ -902,6 +1176,9 @@ async function fetchWeather(attempt = 1) {
 
 // INIT
 buildDays();
+renderHome();
+renderPhrase();
+updateHeaderPill();
 fetchWeather();
 registerSW();
 </script>
